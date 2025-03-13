@@ -4,14 +4,12 @@ source "https://rubygems.org"
 gem "rails", "~> 8.0.2"
 
 gem "bootsnap", require: false
-gem "bootstrap", "~> 4.5"
-gem "dartsass-rails"
 gem "devise", "~> 4.7", ">= 4.7.1"
-gem "devise-bootstrapped", github: "excid3/devise-bootstrapped", branch: "bootstrap4"
 gem "devise_masquerade", "~> 1.2"
 gem "friendly_id", "~> 5.3"
 gem "hotwire-rails"
 gem "image_processing"
+gem "inertia_rails"
 gem "jbuilder"
 gem "kamal", require: false
 gem "madmin", github: "excid3/madmin"
@@ -30,6 +28,7 @@ gem "solid_cache"
 gem "solid_cable"
 gem "solid_queue"
 gem "stimulus-rails"
+gem "tailwindcss-rails"
 gem "thruster", require: false
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ]

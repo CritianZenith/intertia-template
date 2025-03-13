@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'inertia-example', to: 'inertia_example#index'
   get '/privacy', to: 'home#privacy'
   get '/terms', to: 'home#terms'
 

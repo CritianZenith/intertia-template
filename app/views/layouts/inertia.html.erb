@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= render 'shared/head' %>
+    <%= vite_react_refresh_tag %>
     <%= vite_client_tag %>
-    <%= vite_javascript_tag "application" %>
+    <%= vite_javascript_tag "inertia" %>
+    <%= inertia_ssr_head %>
     <%= stylesheet_link_tag "tailwind" %>
 
   </head>
 
   <body>
-    <main class="container">
-      <%= yield %>
-    </main>
+    <%= yield %>
   </body>
 </html>
