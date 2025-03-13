@@ -1,0 +1,8 @@
+development:
+  adapter: solid_cable
+
+test:
+  adapter: async
+
+production:
+  adapter: solid_cable
