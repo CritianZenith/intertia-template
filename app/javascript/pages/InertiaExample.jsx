@@ -1,4 +1,4 @@
-import { Head, usePage } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
 import inertiaSvg from "/assets/inertia.svg";

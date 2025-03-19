@@ -71,7 +71,7 @@ function AccountDropdownMenu({ anchor }) {
   );
 }
 
-export function ApplicationLayout({ events, children }) {
+export function ApplicationLayout({ children }) {
   const { url } = usePage();
   let pathname = url;
 
