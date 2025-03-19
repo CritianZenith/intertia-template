@@ -1,11 +1,7 @@
-import * as ActiveStorage from '@rails/activestorage'
-import LocalTime from 'local-time'
-import '@hotwired/turbo-rails'
-import 'trix'
-import '@rails/actiontext'
+import * as ActiveStorage from "@rails/activestorage";
+import "trix";
+import "@rails/actiontext";
 
-import '~/channels/index.js'
-import '~/controllers/index.js'
+import "~/channels/index.js";
 
-ActiveStorage.start()
-LocalTime.start()
+ActiveStorage.start();

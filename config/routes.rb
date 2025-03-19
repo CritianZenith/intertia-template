@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  get 'inertia-example', to: 'inertia_example#index'
-  get '/privacy', to: 'home#privacy'
-  get '/terms', to: 'home#terms'
+  resource :session
+  resources :passwords, param: :token
+  get "inertia-example", to: "inertia_example#index"
+  get "/privacy", to: "home#privacy"
+  get "/terms", to: "home#terms"
 
-  resources :notifications, only: [:index], export: true
-  resources :announcements, only: [:index], export: true
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
-  root to: 'home#index'
+  resources :notifications, only: [ :index ], export: true
+  resources :announcements, only: [ :index ], export: true
+  root to: "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
