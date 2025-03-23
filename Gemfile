@@ -3,9 +3,11 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 
+gem "bcrypt", "~> 3.1"
 gem "bootsnap", require: false
 gem "image_processing"
 gem "inertia_rails"
+gem "graphql"
 gem "jbuilder"
 gem "kamal", require: false
 gem "mini_magick", "~> 4.10", ">= 4.10.1"
@@ -30,6 +32,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "graphiql-rails"
   gem "js_from_routes"
   gem "solargraph"
   gem "web-console"
@@ -39,5 +42,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "bcrypt", "~> 3.1"

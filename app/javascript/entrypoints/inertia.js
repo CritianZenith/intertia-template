@@ -13,16 +13,12 @@ createInertiaApp({
   //
   title: (title) => (title ? title : "Chat"),
 
-  // Disable progress bar
-  //
-  // see https://inertia-rails.netlify.app/guide/progress-indicators
-  // progress: false,
-
   resolve: (name) => {
-    const pages = import.meta.glob("../pages/**/*.jsx", {
+    // Import all pages, including ones in the pages/Account directory
+    const pages = import.meta.glob("../pages/**/*.*", {
       eager: true,
     });
-    const page = pages[`../pages/${name}.jsx`];
+    const page = pages[`../pages/${name}.tsx`] || pages[`../pages/${name}.jsx`];
     if (!page) {
       console.error(`Missing Inertia page component: '${name}.jsx'`);
     }

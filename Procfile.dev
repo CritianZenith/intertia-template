@@ -1,4 +1,4 @@
-web: bin/vite ssr & bin/rails s
+web: bin/rails s
 worker: bin/jobs
 vite: bin/vite dev
 css: bin/rails tailwindcss:watch

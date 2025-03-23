@@ -13,7 +13,7 @@ export default function InertiaExample({ name }) {
     <>
       <Head title="Inertia + Vite Ruby + React Example" />
 
-      <div className="max-w-7xl mx-auto p-8 text-center font-[Inter] leading-6 font-normal text-[#213547] bg-white">
+      <div className="max-w-7xl mx-auto p-8 text-center font-[Inter] leading-6 font-normal">
         <h1 className="text-5xl leading-tight">Hello {name}!</h1>
 
         <div>
@@ -52,7 +52,7 @@ export default function InertiaExample({ name }) {
 
         <div className="p-8">
           <button
-            className="rounded-lg border border-transparent px-5 py-2.5 text-base font-medium font-inherit bg-[#f9f9f9] cursor-pointer transition-colors duration-250 hover:border-[#646cff] focus:outline-none focus:ring-4"
+            className="rounded-lg border border-transparent px-5 py-2.5 text-base font-medium font-inherit cursor-pointer transition-colors duration-250 hover:border-[#646cff] focus:outline-none focus:ring-4"
             onClick={() => setCount((count) => count + 1)}
           >
             count is {count}

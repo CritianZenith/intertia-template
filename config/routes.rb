@@ -1,13 +1,23 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  # Main API
+  post "/graphql", to: "graphql#execute"
+
+  # Main Web App
+  resources :accounts
+
+  # Authentication
   resource :session
+  get "/session/destroy", to: "sessions#destroy"
   resources :passwords, param: :token
+
+  # Inertia Example
   get "inertia-example", to: "inertia_example#index"
   get "/privacy", to: "home#privacy"
   get "/terms", to: "home#terms"
-
-  resources :notifications, only: [ :index ], export: true
-  resources :announcements, only: [ :index ], export: true
-  root to: "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -19,5 +29,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root to: "home#index"
 end
