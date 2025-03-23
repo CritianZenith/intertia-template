@@ -4,8 +4,3 @@
 // that code so it'll be compiled.
 console.log("Vite ⚡️ Ruby");
 import "~/setup.js";
-
-// Example: Using JS From Routes
-import { announcements } from "~/api";
-console.log(announcements);
-console.log("JS From Routes", { announcements: announcements.index.path() });

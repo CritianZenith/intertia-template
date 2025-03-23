@@ -33,7 +33,6 @@ end
 
 group :development do
   gem "graphiql-rails"
-  gem "js_from_routes"
   gem "solargraph"
   gem "web-console"
 end
