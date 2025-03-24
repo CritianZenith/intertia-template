@@ -1,5 +1,5 @@
 import { AccountType } from "./types";
-import { Text } from "../../components/ui/text"; // Assuming you have a Text component
+import { User } from "@heroui/react";
 
 interface AccountProps {
   account: AccountType;
@@ -7,10 +7,17 @@ interface AccountProps {
 
 export default function Account({ account }: AccountProps) {
   return (
-    <div className="p-4">
-      <Text>
-        <strong>Name:</strong> {account.name?.toString()}
-      </Text>
+    <div className="flex items-center">
+      <User
+        name={account.name}
+        description={`Account ID: ${account.id}`}
+        avatarProps={{
+          name: account.name,
+          showFallback: true,
+          fallback: account.name.charAt(0).toUpperCase(),
+          className: "bg-primary-100 text-primary-600"
+        }}
+      />
     </div>
   );
 }

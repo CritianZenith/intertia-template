@@ -10,6 +10,7 @@
     "@apollo/client": "^3.13.5",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "@heroui/react": "^2.7.5",
     "@inertiajs/react": "^2.0.5",
     "@rails/actiontext": "^8.0.200",
     "clsx": "^2.1.1",

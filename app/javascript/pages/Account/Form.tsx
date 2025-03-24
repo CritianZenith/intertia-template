@@ -1,13 +1,15 @@
 import { useForm, type InertiaFormProps } from "@inertiajs/react";
 import { FormEvent } from "react";
 import { AccountFormType, AccountType } from "./types";
-
-// Import your custom UI components
-import { Heading, Subheading } from "../../components/ui/heading";
-import { Divider } from "../../components/ui/divider";
-import { Text } from "../../components/ui/text";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
+import { 
+  Input, 
+  Button, 
+  Divider, 
+  Card, 
+  CardBody, 
+  CardHeader,
+  CardFooter
+} from "@heroui/react";
 
 interface FormProps {
   account: AccountType;
@@ -28,35 +30,43 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
 
   return (
     <form onSubmit={handleSubmit} method="post" className="mx-auto max-w-4xl">
-      <Heading>Account</Heading>
-      <Divider className="my-10 mt-6" />
-
-      <section className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-        <div className="space-y-1">
-          <Subheading>Name</Subheading>
-          <Text>This is the name associated with your account.</Text>
-        </div>
-        <div>
-          <Input
-            aria-label="Name"
-            name="name"
-            value={data.name}
-            onChange={(e) => setData("name", e.target.value)}
-          />
-          {/* Display error if present */}
-          {errors.name && (
-            <div className="mt-1 text-sm text-red-500">{errors.name}</div>
-          )}
-        </div>
-      </section>
-
-      <Divider className="my-10" soft />
-
-      <div className="flex justify-end gap-4">
-        <Button type="submit" disabled={processing}>
-          {submitText}
-        </Button>
-      </div>
+      <Card>
+        <CardHeader>
+          <h2 className="text-2xl font-bold">Account</h2>
+        </CardHeader>
+        <Divider />
+        <CardBody>
+          <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
+            <div className="space-y-1">
+              <h3 className="text-lg font-semibold">Name</h3>
+              <p className="text-gray-600 dark:text-gray-400">This is the name associated with your account.</p>
+            </div>
+            <div>
+              <Input
+                label="Name"
+                name="name"
+                value={data.name}
+                onChange={(e) => setData("name", e.target.value)}
+                isInvalid={Boolean(errors.name)}
+                errorMessage={errors.name}
+                placeholder="Enter account name"
+                className="w-full"
+              />
+            </div>
+          </div>
+        </CardBody>
+        <Divider />
+        <CardFooter className="flex justify-end gap-4">
+          <Button 
+            type="submit" 
+            color="primary" 
+            isLoading={processing}
+            isDisabled={processing}
+          >
+            {submitText}
+          </Button>
+        </CardFooter>
+      </Card>
     </form>
   );
 }

@@ -1,6 +1,7 @@
 import { createInertiaApp } from "@inertiajs/react";
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
+import { HeroUIProvider } from "@heroui/react";
 
 import { ApplicationLayout } from "../layouts/Layout";
 import { ApolloClientProvider } from "../lib/apollo";
@@ -36,9 +37,17 @@ createInertiaApp({
 
   setup({ el, App, props }) {
     if (el) {
-      // Wrap the app with ApolloClientProvider
+      // Wrap the app with ApolloClientProvider and HeroUIProvider
       createRoot(el).render(
-        createElement(ApolloClientProvider, null, createElement(App, props)),
+        createElement(
+          ApolloClientProvider, 
+          null, 
+          createElement(
+            HeroUIProvider, 
+            null, 
+            createElement(App, props)
+          )
+        ),
       );
     } else {
       console.error(

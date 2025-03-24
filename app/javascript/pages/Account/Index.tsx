@@ -1,13 +1,16 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { useState } from "react";
 import Account from "./Account";
 import { AccountType } from "./types";
-
-// Import your custom UI components
-import { Heading } from "../../components/ui/heading";
-import { Divider } from "../../components/ui/divider";
-import { Button } from "../../components/ui/button";
-import { Alert } from "../../components/ui/alert"; // Assume an Alert component for flash messages
+import { 
+  Link, 
+  Button, 
+  Card, 
+  CardBody, 
+  CardFooter,
+  Alert,
+  Divider
+} from "@heroui/react";
 
 interface IndexProps {
   accounts: AccountType[];
@@ -15,47 +18,51 @@ interface IndexProps {
 }
 
 export default function Index({ accounts, flash }: IndexProps) {
-  const [flashDismissed, setFlashDismissed] = useState(false);
+  const [flashVisible, setFlashVisible] = useState(!!flash.notice);
 
   return (
     <>
       <Head title="Accounts" />
 
-      {flash.notice && (
-        <Alert
-          open={!flashDismissed}
-          onClose={() => setFlashDismissed(true)}
-          className="my-4"
+      {flash.notice && flashVisible && (
+        <Alert 
+          className="mb-6" 
+          onClose={() => setFlashVisible(false)}
+          color="success"
         >
           {flash.notice}
         </Alert>
       )}
 
-      <Heading className="my-6">Accounts</Heading>
-      <Divider className="mb-6" soft />
-
-      <div className="space-y-4">
-        {accounts.map((account) => (
-          <div
-            key={account.id}
-            className="p-4 border rounded-lg border-gray-200 shadow-sm"
-          >
-            <Account account={account} />
-            <div className="mt-2 text-right">
-              <Link href={`/accounts/${account.id}`}>
-                <Button plain>Show this account</Button>
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <Divider className="my-6" soft />
-
-      <div className="flex justify-end">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">Accounts</h1>
         <Link href="/accounts/new">
-          <Button>Create New Account</Button>
+          <Button color="primary">Create New Account</Button>
         </Link>
+      </div>
+      
+      <Divider className="mb-6" />
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {accounts.map((account) => (
+          <Card key={account.id} className="shadow-sm">
+            <CardBody>
+              <Account account={account} />
+            </CardBody>
+            <Divider />
+            <CardFooter className="flex justify-end">
+              <Link href={`/accounts/${account.id}`}>
+                <Button variant="light" size="sm">View Details</Button>
+              </Link>
+            </CardFooter>
+          </Card>
+        ))}
+        
+        {accounts.length === 0 && (
+          <div className="col-span-full text-center py-8 text-gray-500">
+            No accounts found. Create your first account to get started.
+          </div>
+        )}
       </div>
     </>
   );

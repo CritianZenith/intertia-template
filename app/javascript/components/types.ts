@@ -4,10 +4,12 @@ export interface Account {
   name: string;
 }
 
+export interface AccountEdge {
+  node: Account;
+}
+
 export interface AccountsData {
   accounts: {
-    edges: {
-      node: Account;
-    }[];
+    edges: AccountEdge[];
   };
 }

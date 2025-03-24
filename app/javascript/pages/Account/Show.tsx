@@ -1,13 +1,18 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { useState } from "react";
 import Account from "./Account";
 import { AccountType } from "./types";
-
-// Import your custom UI components
-import { Heading } from "../../components/ui/heading";
-import { Divider } from "../../components/ui/divider";
-import { Button } from "../../components/ui/button";
-import { Alert } from "../../components/ui/alert"; // Assume an Alert component for flash messages
+import { 
+  Link, 
+  Button, 
+  Divider,
+  Breadcrumbs,
+  BreadcrumbItem,
+  Card,
+  CardBody,
+  CardHeader,
+  Alert
+} from "@heroui/react";
 
 interface ShowProps {
   account: AccountType;
@@ -15,49 +20,54 @@ interface ShowProps {
 }
 
 export default function Show({ account, flash }: ShowProps) {
-  const [flashDismissed, setFlashDismissed] = useState(false);
+  const [flashVisible, setFlashVisible] = useState(!!flash.notice);
 
   return (
     <>
-      <Head title={`Account #${account.id}`} />
+      <Head title={`Account: ${account.name}`} />
 
-      {flash.notice && !flashDismissed && (
-        <Alert
-          open={!flashDismissed}
-          onClose={() => setFlashDismissed(true)}
-          className="my-4"
+      {flash.notice && flashVisible && (
+        <Alert 
+          className="mb-6" 
+          onClose={() => setFlashVisible(false)}
+          color="success"
         >
           {flash.notice}
         </Alert>
       )}
+      
+      <Breadcrumbs className="mb-6">
+        <BreadcrumbItem href="/accounts">Accounts</BreadcrumbItem>
+        <BreadcrumbItem>{account.name}</BreadcrumbItem>
+      </Breadcrumbs>
 
-      <Heading className="my-6">Account #{account.id}</Heading>
-      <Divider className="mb-6" soft />
+      <h1 className="text-3xl font-bold my-6">Account: {account.name}</h1>
 
-      <Account account={account} />
-
-      <Divider className="my-6" soft />
+      <Card className="mb-6">
+        <CardHeader>
+          <h2 className="text-xl font-semibold">Account Details</h2>
+        </CardHeader>
+        <CardBody>
+          <Account account={account} />
+        </CardBody>
+      </Card>
 
       <div className="flex justify-end gap-4">
         <Link href={`/accounts/${account.id}/edit`}>
-          <Button>Edit this account</Button>
+          <Button color="primary">Edit this account</Button>
         </Link>
         <Link href="/accounts">
-          <Button plain>Back to accounts</Button>
+          <Button variant="light">Back to accounts</Button>
         </Link>
 
         <Button
+          as="a"
           href={`/accounts/${account.id}`}
-          type="button"
-          color="red"
-          method="delete"
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            if (!confirm("Are you sure you want to delete this account?")) {
-              e.preventDefault();
-            }
-          }}
+          color="danger"
+          data-method="delete"
+          data-confirm="Are you sure you want to delete this account?"
         >
-          Destroy this account
+          Delete this account
         </Button>
       </div>
     </>

@@ -1,179 +1,190 @@
-import { Avatar } from "~/components/ui/avatar";
-import {
-  Dropdown,
-  DropdownButton,
-  DropdownDivider,
-  DropdownItem,
-  DropdownLabel,
-  DropdownMenu,
-} from "~/components/ui/dropdown";
-import {
-  Navbar,
-  NavbarItem,
-  NavbarSection,
-  NavbarSpacer,
-} from "~/components/ui/navbar";
-import {
-  Sidebar,
-  SidebarBody,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarItem,
-  SidebarLabel,
-  SidebarSection,
-  SidebarSpacer,
-} from "~/components/ui/sidebar";
-import { SidebarLayout } from "~/components/ui/sidebar-layout";
-import { AccountsDropdown } from "~/components/AccountsDropdown";
-import { AccountsList } from "~/components/AccountsList";
-import React, { Suspense } from "react";
-
-import {
-  ArrowRightStartOnRectangleIcon,
-  ChevronUpIcon,
-  LightBulbIcon,
-  ShieldCheckIcon,
-  UserCircleIcon,
-} from "@heroicons/react/16/solid";
-import {
-  Cog6ToothIcon,
-  HomeIcon,
-  QuestionMarkCircleIcon,
-  SparklesIcon,
-  Square2StackIcon,
-  TicketIcon,
-} from "@heroicons/react/20/solid";
-import { MenuItemsProps } from "@headlessui/react";
+import React, { useState, useEffect } from "react";
 import { usePage } from "@inertiajs/react";
-
-type AnchorProps = MenuItemsProps["anchor"];
-
-function AccountDropdownMenu({ anchor }: { anchor: AnchorProps }) {
-  return (
-    <DropdownMenu className="min-w-64" anchor={anchor}>
-      <DropdownItem href="#">
-        <UserCircleIcon />
-        <DropdownLabel>My account</DropdownLabel>
-      </DropdownItem>
-      <DropdownDivider />
-      <DropdownItem href="#">
-        <ShieldCheckIcon />
-        <DropdownLabel>Privacy policy</DropdownLabel>
-      </DropdownItem>
-      <DropdownItem href="#">
-        <LightBulbIcon />
-        <DropdownLabel>Share feedback</DropdownLabel>
-      </DropdownItem>
-      <DropdownDivider />
-      <DropdownItem href="/session/destroy">
-        <ArrowRightStartOnRectangleIcon />
-        <DropdownLabel>Sign out</DropdownLabel>
-      </DropdownItem>
-    </DropdownMenu>
-  );
-}
+import { 
+  Navbar, 
+  NavbarBrand, 
+  NavbarContent, 
+  NavbarItem, 
+  Link, 
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  Divider,
+  Switch
+} from "@heroui/react";
+import { AccountsList } from "../components/AccountsList";
+import { 
+  Bars3Icon, 
+  XMarkIcon,
+  HomeIcon,
+  BuildingOfficeIcon,
+  UserIcon,
+  CogIcon,
+  SunIcon,
+  MoonIcon
+} from "@heroicons/react/24/outline";
 
 export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   const { url } = usePage();
   const pathname = url;
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Initialize dark mode based on system preference or saved setting
+  useEffect(() => {
+    // Check if user has a saved preference
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme === 'dark' || 
+        (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setIsDarkMode(true);
+      document.documentElement.classList.add('dark');
+    } else {
+      setIsDarkMode(false);
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      setIsDarkMode(false);
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      setIsDarkMode(true);
+    }
+  };
+
+  // Define navigation items
+  const navItems = [
+    { name: "Dashboard", href: "/", icon: HomeIcon },
+    { name: "Accounts", href: "/accounts", icon: BuildingOfficeIcon },
+    { name: "Profile", href: "/profile", icon: UserIcon },
+    { name: "Settings", href: "/settings", icon: CogIcon },
+  ];
+
+  // Dark mode toggle component
+  const DarkModeToggle = () => (
+    <div className="flex items-center space-x-2">
+      <SunIcon className="h-5 w-5 text-gray-500" />
+      <Switch 
+        isSelected={isDarkMode}
+        onValueChange={toggleDarkMode}
+        size="sm"
+      />
+      <MoonIcon className="h-5 w-5 text-gray-500" />
+    </div>
+  );
+
+  // Mobile sidebar (Drawer)
+  const MobileSidebar = () => (
+    <Drawer 
+      isOpen={isSidebarOpen}
+      onOpenChange={setIsSidebarOpen}
+      placement="left"
+    >
+      <DrawerContent>
+        <DrawerHeader className="flex justify-between items-center">
+          <span className="text-xl font-bold">Management App</span>
+        </DrawerHeader>
+        <DrawerBody>
+          <div className="flex flex-col space-y-1">
+            {navItems.map((item) => (
+              <Link 
+                key={item.name}
+                href={item.href}
+                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                  pathname === item.href 
+                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" 
+                    : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                }`}
+              >
+                <item.icon className="mr-3 h-5 w-5" />
+                {item.name}
+              </Link>
+            ))}
+          </div>
+          <Divider className="my-4" />
+          <AccountsList heading="Your Accounts" />
+          <div className="mt-6 flex justify-center">
+            <DarkModeToggle />
+          </div>
+        </DrawerBody>
+        <DrawerFooter>
+          <div className="text-xs text-gray-500 dark:text-gray-400">
+            © {new Date().getFullYear()} Management App
+          </div>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
 
   return (
-    <SidebarLayout
-      navbar={
-        <Navbar>
-          <NavbarSpacer />
-          <NavbarSection>
-            <Dropdown>
-              <DropdownButton as={NavbarItem}>
-                <Avatar initials="JK" square />
-              </DropdownButton>
-              <AccountDropdownMenu anchor="bottom end" />
-            </Dropdown>
-          </NavbarSection>
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Desktop sidebar */}
+      <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+        <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
+          <span className="text-xl font-bold dark:text-white">Management App</span>
+          <DarkModeToggle />
+        </div>
+        <div className="flex-1 flex flex-col overflow-y-auto p-4">
+          <nav className="flex-1 space-y-1">
+            {navItems.map((item) => (
+              <Link 
+                key={item.name}
+                href={item.href}
+                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                  pathname === item.href 
+                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" 
+                    : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                }`}
+              >
+                <item.icon className="mr-3 h-5 w-5" />
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+          <Divider className="my-4" />
+          <AccountsList heading="Your Accounts" />
+        </div>
+      </div>
+      
+      {/* Mobile navbar and content */}
+      <div className="lg:pl-64 flex flex-col flex-1">
+        <Navbar className="lg:hidden border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+          <NavbarContent>
+            <NavbarItem>
+              <Button 
+                isIconOnly 
+                variant="light" 
+                onClick={() => setIsSidebarOpen(true)}
+              >
+                <Bars3Icon className="h-6 w-6" />
+              </Button>
+            </NavbarItem>
+            <NavbarBrand>
+              <span className="font-bold dark:text-white">Management App</span>
+            </NavbarBrand>
+            <NavbarItem className="ml-auto">
+              <DarkModeToggle />
+            </NavbarItem>
+          </NavbarContent>
         </Navbar>
-      }
-      sidebar={
-        <Sidebar>
-          <SidebarHeader>
-            <Suspense
-              fallback={<SidebarItem disabled>Loading accounts...</SidebarItem>}
-            >
-              <AccountsDropdown />
-            </Suspense>
-          </SidebarHeader>
-
-          <SidebarBody>
-            <SidebarSection>
-              <SidebarItem href="/" current={pathname === "/"}>
-                <HomeIcon />
-                <SidebarLabel>Home</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem
-                href="/events"
-                current={pathname.startsWith("/events")}
-              >
-                <Square2StackIcon />
-                <SidebarLabel>Events</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem
-                href="/orders"
-                current={pathname.startsWith("/orders")}
-              >
-                <TicketIcon />
-                <SidebarLabel>Orders</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem
-                href="/settings"
-                current={pathname.startsWith("/settings")}
-              >
-                <Cog6ToothIcon />
-                <SidebarLabel>Settings</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
-
-            <Suspense
-              fallback={<SidebarItem disabled>Loading accounts...</SidebarItem>}
-            >
-              <AccountsList className="max-lg:hidden" />
-            </Suspense>
-
-            <SidebarSpacer />
-
-            <SidebarSection>
-              <SidebarItem href="#">
-                <QuestionMarkCircleIcon />
-                <SidebarLabel>Support</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="#">
-                <SparklesIcon />
-                <SidebarLabel>Changelog</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
-          </SidebarBody>
-
-          <SidebarFooter className="max-lg:hidden">
-            <Dropdown>
-              <DropdownButton as={SidebarItem}>
-                <span className="flex min-w-0 items-center gap-3">
-                  <Avatar initials="SB" className="size-10" square alt="" />
-                  <span className="min-w-0">
-                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
-                      Sheila
-                    </span>
-                    <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                      sheila@example.com
-                    </span>
-                  </span>
-                </span>
-                <ChevronUpIcon />
-              </DropdownButton>
-              <AccountDropdownMenu anchor="top start" />
-            </Dropdown>
-          </SidebarFooter>
-        </Sidebar>
-      }
-    >
-      {children}
-    </SidebarLayout>
+        
+        {/* Mobile sidebar */}
+        <MobileSidebar />
+        
+        {/* Main content */}
+        <main className="flex-1 p-4 overflow-y-auto dark:bg-gray-900 dark:text-gray-200">
+          {children}
+        </main>
+      </div>
+    </div>
   );
 }
