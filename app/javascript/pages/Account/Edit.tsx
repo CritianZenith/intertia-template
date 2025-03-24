@@ -1,12 +1,12 @@
 import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
-import { 
-  Link, 
-  Button, 
+import {
+  Link,
+  Button,
   Divider,
   Breadcrumbs,
-  BreadcrumbItem
+  BreadcrumbItem,
 } from "@heroui/react";
 
 interface EditProps {
@@ -17,10 +17,12 @@ export default function Edit({ account }: EditProps) {
   return (
     <>
       <Head title="Editing Account" />
-      
+
       <Breadcrumbs className="mb-6">
         <BreadcrumbItem href="/accounts">Accounts</BreadcrumbItem>
-        <BreadcrumbItem href={`/accounts/${account.id}`}>{account.name}</BreadcrumbItem>
+        <BreadcrumbItem href={`/accounts/${account.id}`}>
+          {account.name}
+        </BreadcrumbItem>
         <BreadcrumbItem>Edit</BreadcrumbItem>
       </Breadcrumbs>
 

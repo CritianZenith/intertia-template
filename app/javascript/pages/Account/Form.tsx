@@ -1,14 +1,14 @@
 import { useForm, type InertiaFormProps } from "@inertiajs/react";
 import { FormEvent } from "react";
 import { AccountFormType, AccountType } from "./types";
-import { 
-  Input, 
-  Button, 
-  Divider, 
-  Card, 
-  CardBody, 
+import {
+  Input,
+  Button,
+  Divider,
+  Card,
+  CardBody,
   CardHeader,
-  CardFooter
+  CardFooter,
 } from "@heroui/react";
 
 interface FormProps {
@@ -39,7 +39,9 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
           <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
             <div className="space-y-1">
               <h3 className="text-lg font-semibold">Name</h3>
-              <p className="text-gray-600 dark:text-gray-400">This is the name associated with your account.</p>
+              <p className="text-gray-600 dark:text-gray-400">
+                This is the name associated with your account.
+              </p>
             </div>
             <div>
               <Input
@@ -57,9 +59,9 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
         </CardBody>
         <Divider />
         <CardFooter className="flex justify-end gap-4">
-          <Button 
-            type="submit" 
-            color="primary" 
+          <Button
+            type="submit"
+            color="primary"
             isLoading={processing}
             isDisabled={processing}
           >

@@ -15,7 +15,7 @@ export default function Account({ account }: AccountProps) {
           name: account.name,
           showFallback: true,
           fallback: account.name.charAt(0).toUpperCase(),
-          className: "bg-primary-100 text-primary-600"
+          className: "bg-primary-100 text-primary-600",
         }}
       />
     </div>

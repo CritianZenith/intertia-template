@@ -8,9 +8,7 @@ interface AccountsListProps {
   heading?: string;
 }
 
-export function AccountsList({
-  heading = "Your Accounts",
-}: AccountsListProps) {
+export function AccountsList({ heading = "Your Accounts" }: AccountsListProps) {
   // Fetch accounts using Suspense-compatible query
   const { data } = useSuspenseQuery<AccountsData>(GET_ACCOUNTS);
 
@@ -19,12 +17,14 @@ export function AccountsList({
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">{heading}</h3>
+      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+        {heading}
+      </h3>
       <div className="space-y-1">
         {accounts.map((account) => (
-          <Link 
-            key={account.id} 
-            href={`/accounts/${account.id}`} 
+          <Link
+            key={account.id}
+            href={`/accounts/${account.id}`}
             className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
           >
             <div className="flex-shrink-0 w-8 h-8 mr-3 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300">
@@ -33,8 +33,8 @@ export function AccountsList({
             <span>{account.name}</span>
           </Link>
         ))}
-        <Link 
-          href="/accounts/new" 
+        <Link
+          href="/accounts/new"
           className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
         >
           <div className="flex-shrink-0 w-8 h-8 mr-3 flex items-center justify-center">

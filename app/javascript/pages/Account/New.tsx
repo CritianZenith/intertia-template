@@ -1,12 +1,12 @@
 import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
-import { 
-  Link, 
-  Button, 
+import {
+  Link,
+  Button,
   Divider,
   Breadcrumbs,
-  BreadcrumbItem 
+  BreadcrumbItem,
 } from "@heroui/react";
 
 interface NewProps {

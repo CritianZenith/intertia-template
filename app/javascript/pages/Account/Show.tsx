@@ -2,16 +2,15 @@ import { Head } from "@inertiajs/react";
 import { useState } from "react";
 import Account from "./Account";
 import { AccountType } from "./types";
-import { 
-  Link, 
-  Button, 
-  Divider,
+import {
+  Link,
+  Button,
   Breadcrumbs,
   BreadcrumbItem,
   Card,
   CardBody,
   CardHeader,
-  Alert
+  Alert,
 } from "@heroui/react";
 
 interface ShowProps {
@@ -27,15 +26,15 @@ export default function Show({ account, flash }: ShowProps) {
       <Head title={`Account: ${account.name}`} />
 
       {flash.notice && flashVisible && (
-        <Alert 
-          className="mb-6" 
+        <Alert
+          className="mb-6"
           onClose={() => setFlashVisible(false)}
           color="success"
         >
           {flash.notice}
         </Alert>
       )}
-      
+
       <Breadcrumbs className="mb-6">
         <BreadcrumbItem href="/accounts">Accounts</BreadcrumbItem>
         <BreadcrumbItem>{account.name}</BreadcrumbItem>

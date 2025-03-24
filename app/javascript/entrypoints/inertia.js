@@ -40,13 +40,9 @@ createInertiaApp({
       // Wrap the app with ApolloClientProvider and HeroUIProvider
       createRoot(el).render(
         createElement(
-          ApolloClientProvider, 
-          null, 
-          createElement(
-            HeroUIProvider, 
-            null, 
-            createElement(App, props)
-          )
+          ApolloClientProvider,
+          null,
+          createElement(HeroUIProvider, null, createElement(App, props)),
         ),
       );
     } else {

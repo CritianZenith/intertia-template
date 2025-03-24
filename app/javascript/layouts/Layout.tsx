@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { usePage } from "@inertiajs/react";
-import { 
-  Navbar, 
-  NavbarBrand, 
-  NavbarContent, 
-  NavbarItem, 
-  Link, 
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
   Button,
   Drawer,
   DrawerContent,
@@ -13,18 +13,17 @@ import {
   DrawerBody,
   DrawerFooter,
   Divider,
-  Switch
+  Switch,
 } from "@heroui/react";
 import { AccountsList } from "../components/AccountsList";
-import { 
-  Bars3Icon, 
-  XMarkIcon,
+import {
+  Bars3Icon,
   HomeIcon,
   BuildingOfficeIcon,
   UserIcon,
   CogIcon,
   SunIcon,
-  MoonIcon
+  MoonIcon,
 } from "@heroicons/react/24/outline";
 
 export function ApplicationLayout({ children }: { children: React.ReactNode }) {
@@ -36,27 +35,29 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   // Initialize dark mode based on system preference or saved setting
   useEffect(() => {
     // Check if user has a saved preference
-    const savedTheme = localStorage.getItem('theme');
-    
-    if (savedTheme === 'dark' || 
-        (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (
+      savedTheme === "dark" ||
+      (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
       setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
       setIsDarkMode(false);
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
   // Toggle dark mode
   const toggleDarkMode = () => {
     if (isDarkMode) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
       setIsDarkMode(false);
     } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
       setIsDarkMode(true);
     }
   };
@@ -73,7 +74,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   const DarkModeToggle = () => (
     <div className="flex items-center space-x-2">
       <SunIcon className="h-5 w-5 text-gray-500" />
-      <Switch 
+      <Switch
         isSelected={isDarkMode}
         onValueChange={toggleDarkMode}
         size="sm"
@@ -84,7 +85,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
 
   // Mobile sidebar (Drawer)
   const MobileSidebar = () => (
-    <Drawer 
+    <Drawer
       isOpen={isSidebarOpen}
       onOpenChange={setIsSidebarOpen}
       placement="left"
@@ -96,12 +97,12 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
         <DrawerBody>
           <div className="flex flex-col space-y-1">
             {navItems.map((item) => (
-              <Link 
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                  pathname === item.href 
-                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" 
+                  pathname === item.href
+                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300"
                     : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                 }`}
               >
@@ -130,18 +131,20 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar */}
       <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
         <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
-          <span className="text-xl font-bold dark:text-white">Management App</span>
+          <span className="text-xl font-bold dark:text-white">
+            Management App
+          </span>
           <DarkModeToggle />
         </div>
         <div className="flex-1 flex flex-col overflow-y-auto p-4">
           <nav className="flex-1 space-y-1">
             {navItems.map((item) => (
-              <Link 
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                  pathname === item.href 
-                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" 
+                  pathname === item.href
+                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300"
                     : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                 }`}
               >
@@ -154,15 +157,15 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
           <AccountsList heading="Your Accounts" />
         </div>
       </div>
-      
+
       {/* Mobile navbar and content */}
       <div className="lg:pl-64 flex flex-col flex-1">
         <Navbar className="lg:hidden border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800">
           <NavbarContent>
             <NavbarItem>
-              <Button 
-                isIconOnly 
-                variant="light" 
+              <Button
+                isIconOnly
+                variant="light"
                 onClick={() => setIsSidebarOpen(true)}
               >
                 <Bars3Icon className="h-6 w-6" />
@@ -176,10 +179,10 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
             </NavbarItem>
           </NavbarContent>
         </Navbar>
-        
+
         {/* Mobile sidebar */}
         <MobileSidebar />
-        
+
         {/* Main content */}
         <main className="flex-1 p-4 overflow-y-auto dark:bg-gray-900 dark:text-gray-200">
           {children}

@@ -2,14 +2,14 @@ import { Head } from "@inertiajs/react";
 import { useState } from "react";
 import Account from "./Account";
 import { AccountType } from "./types";
-import { 
-  Link, 
-  Button, 
-  Card, 
-  CardBody, 
+import {
+  Link,
+  Button,
+  Card,
+  CardBody,
   CardFooter,
   Alert,
-  Divider
+  Divider,
 } from "@heroui/react";
 
 interface IndexProps {
@@ -25,8 +25,8 @@ export default function Index({ accounts, flash }: IndexProps) {
       <Head title="Accounts" />
 
       {flash.notice && flashVisible && (
-        <Alert 
-          className="mb-6" 
+        <Alert
+          className="mb-6"
           onClose={() => setFlashVisible(false)}
           color="success"
         >
@@ -40,7 +40,7 @@ export default function Index({ accounts, flash }: IndexProps) {
           <Button color="primary">Create New Account</Button>
         </Link>
       </div>
-      
+
       <Divider className="mb-6" />
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -52,12 +52,14 @@ export default function Index({ accounts, flash }: IndexProps) {
             <Divider />
             <CardFooter className="flex justify-end">
               <Link href={`/accounts/${account.id}`}>
-                <Button variant="light" size="sm">View Details</Button>
+                <Button variant="light" size="sm">
+                  View Details
+                </Button>
               </Link>
             </CardFooter>
           </Card>
         ))}
-        
+
         {accounts.length === 0 && (
           <div className="col-span-full text-center py-8 text-gray-500">
             No accounts found. Create your first account to get started.
