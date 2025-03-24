@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import { GET_ACCOUNTS } from "~/lib/queries";
 import { Avatar } from "~/components/ui/avatar";
 import { SidebarItem, SidebarLabel, SidebarHeading, SidebarSection } from "~/components/ui/sidebar";
@@ -14,18 +14,16 @@ export function AccountsList({
   className,
   heading = "Your Accounts" 
 }: AccountsListProps) {
-  // Fetch accounts from GraphQL
-  const { loading, error, data } = useQuery<AccountsData>(GET_ACCOUNTS);
+  // Fetch accounts using Suspense-compatible query
+  const { data } = useSuspenseQuery<AccountsData>(GET_ACCOUNTS);
   
-  // Extract accounts from the data if available
+  // Extract accounts from the data
   const accounts = data?.accounts?.edges?.map(edge => edge.node) || [];
 
   return (
     <SidebarSection className={className}>
       <SidebarHeading>{heading}</SidebarHeading>
-      {loading && <SidebarItem disabled>Loading accounts...</SidebarItem>}
-      {error && <SidebarItem disabled>Error loading accounts</SidebarItem>}
-      {!loading && !error && accounts.map((account) => (
+      {accounts.map((account) => (
         <SidebarItem key={account.id} href="#">
           <Avatar initials={account.name.charAt(0)} />
           <SidebarLabel>{account.name}</SidebarLabel>

@@ -26,6 +26,7 @@ import {
 import { SidebarLayout } from "~/components/ui/sidebar-layout";
 import { AccountsDropdown } from "~/components/AccountsDropdown";
 import { AccountsList } from "~/components/AccountsList";
+import React, { Suspense } from "react";
 
 import {
   ArrowRightStartOnRectangleIcon,
@@ -94,7 +95,9 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
       sidebar={
         <Sidebar>
           <SidebarHeader>
-            <AccountsDropdown />
+            <Suspense fallback={<SidebarItem disabled>Loading accounts...</SidebarItem>}>
+              <AccountsDropdown />
+            </Suspense>
           </SidebarHeader>
 
           <SidebarBody>
@@ -126,7 +129,9 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
               </SidebarItem>
             </SidebarSection>
 
-            <AccountsList className="max-lg:hidden" />
+            <Suspense fallback={<SidebarItem disabled>Loading accounts...</SidebarItem>}>
+              <AccountsList className="max-lg:hidden" />
+            </Suspense>
 
             <SidebarSpacer />
 

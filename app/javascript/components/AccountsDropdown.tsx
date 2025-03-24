@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import { GET_ACCOUNTS } from "~/lib/queries";
 import { Avatar } from "~/components/ui/avatar";
 import {
@@ -31,36 +31,25 @@ export function AccountsDropdown({
   as = SidebarItem,
   buttonClassName,
 }: AccountsDropdownProps) {
-  // Fetch accounts from GraphQL
-  const { loading, error, data } = useQuery<AccountsData>(GET_ACCOUNTS);
+  // Fetch accounts using Suspense-compatible query
+  const { data } = useSuspenseQuery<AccountsData>(GET_ACCOUNTS);
   
-  // Extract accounts from the data if available
+  // Extract accounts from the data
   const accounts = data?.accounts?.edges?.map(edge => edge.node) || [];
+  const currentAccount = accounts.length > 0 ? accounts[0] : null;
 
   return (
     <Dropdown>
       <DropdownButton as={as} className={buttonClassName}>
-        <Avatar initials={accounts.length > 0 ? accounts[0].name.charAt(0) : "M"} />
-        <SidebarLabel>{accounts.length > 0 ? accounts[0].name : "Loading..."}</SidebarLabel>
+        <Avatar initials={currentAccount ? currentAccount.name.charAt(0) : "?"} />
+        <SidebarLabel>{currentAccount ? currentAccount.name : "No accounts"}</SidebarLabel>
         <ChevronDownIcon />
       </DropdownButton>
       <DropdownMenu
         className={className}
         anchor={anchor}
       >
-        {loading && (
-          <DropdownItem disabled>
-            <DropdownLabel>Loading accounts...</DropdownLabel>
-          </DropdownItem>
-        )}
-        
-        {error && (
-          <DropdownItem disabled>
-            <DropdownLabel>Error loading accounts</DropdownLabel>
-          </DropdownItem>
-        )}
-        
-        {!loading && !error && accounts.map((account) => (
+        {accounts.map((account) => (
           <DropdownItem key={account.id} href="#">
             <Avatar slot="icon" initials={account.name.charAt(0)} />
             <DropdownLabel>{account.name}</DropdownLabel>
