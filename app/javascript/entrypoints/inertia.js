@@ -3,6 +3,7 @@ import { createElement } from "react";
 import { createRoot } from "react-dom/client";
 
 import { ApplicationLayout } from "../layouts/Layout";
+import { ApolloClientProvider } from "../lib/apollo";
 
 createInertiaApp({
   progress: {
@@ -35,7 +36,14 @@ createInertiaApp({
 
   setup({ el, App, props }) {
     if (el) {
-      createRoot(el).render(createElement(App, props));
+      // Wrap the app with ApolloClientProvider
+      createRoot(el).render(
+        createElement(
+          ApolloClientProvider,
+          null, 
+          createElement(App, props)
+        )
+      );
     } else {
       console.error(
         "Missing root element.\n\n" +

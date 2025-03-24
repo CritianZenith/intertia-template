@@ -46,8 +46,24 @@ import {
 } from "@heroicons/react/20/solid";
 import { MenuItemsProps } from "@headlessui/react";
 import { usePage } from "@inertiajs/react";
+import { useQuery } from "@apollo/client";
+import { GET_ACCOUNTS } from "../lib/queries";
 
 type AnchorProps = MenuItemsProps["anchor"];
+
+// Interface for the account data returned from GraphQL
+interface Account {
+  id: string;
+  name: string;
+}
+
+interface AccountsData {
+  accounts: {
+    edges: {
+      node: Account;
+    }[];
+  };
+}
 
 function AccountDropdownMenu({ anchor }: { anchor: AnchorProps }) {
   return (
@@ -77,6 +93,12 @@ function AccountDropdownMenu({ anchor }: { anchor: AnchorProps }) {
 export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   const { url } = usePage();
   let pathname = url;
+  
+  // Fetch accounts from GraphQL
+  const { loading, error, data } = useQuery<AccountsData>(GET_ACCOUNTS);
+  
+  // Extract accounts from the data if available
+  const accounts = data?.accounts?.edges?.map(edge => edge.node) || [];
 
   return (
     <SidebarLayout
@@ -98,33 +120,35 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
           <SidebarHeader>
             <Dropdown>
               <DropdownButton as={SidebarItem}>
-                <Avatar initials="M" />
-                <SidebarLabel>Catalyst</SidebarLabel>
+                <Avatar initials={accounts.length > 0 ? accounts[0].name.charAt(0) : "M"} />
+                <SidebarLabel>{accounts.length > 0 ? accounts[0].name : "Loading..."}</SidebarLabel>
                 <ChevronDownIcon />
               </DropdownButton>
               <DropdownMenu
                 className="min-w-80 lg:min-w-64"
                 anchor="bottom start"
               >
-                <DropdownItem href="/settings">
-                  <Cog8ToothIcon />
-                  <DropdownLabel>Settings</DropdownLabel>
-                </DropdownItem>
+                {loading && (
+                  <DropdownItem disabled>
+                    <DropdownLabel>Loading accounts...</DropdownLabel>
+                  </DropdownItem>
+                )}
+                
+                {error && (
+                  <DropdownItem disabled>
+                    <DropdownLabel>Error loading accounts</DropdownLabel>
+                  </DropdownItem>
+                )}
+                
+                {!loading && !error && accounts.map((account) => (
+                  <DropdownItem key={account.id} href="#">
+                    <Avatar slot="icon" initials={account.name.charAt(0)} />
+                    <DropdownLabel>{account.name}</DropdownLabel>
+                  </DropdownItem>
+                ))}
+                
                 <DropdownDivider />
-                <DropdownItem href="#">
-                  <Avatar slot="icon" src="/assets/inertia.svg" />
-                  <DropdownLabel>Catalyst</DropdownLabel>
-                </DropdownItem>
-                <DropdownItem href="#">
-                  <Avatar
-                    slot="icon"
-                    initials="BE"
-                    className="bg-purple-500 text-white"
-                  />
-                  <DropdownLabel>Big Events</DropdownLabel>
-                </DropdownItem>
-                <DropdownDivider />
-                <DropdownItem href="#">
+                <DropdownItem href="/accounts/new">
                   <PlusIcon />
                   <DropdownLabel>New account&hellip;</DropdownLabel>
                 </DropdownItem>
@@ -162,12 +186,19 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
             </SidebarSection>
 
             <SidebarSection className="max-lg:hidden">
-              <SidebarHeading>Upcoming Events</SidebarHeading>
-              {[].map((event) => (
-                <SidebarItem key={event.id} href={event.url}>
-                  {event.name}
+              <SidebarHeading>Your Accounts</SidebarHeading>
+              {loading && <SidebarItem disabled>Loading accounts...</SidebarItem>}
+              {error && <SidebarItem disabled>Error loading accounts</SidebarItem>}
+              {!loading && !error && accounts.map((account) => (
+                <SidebarItem key={account.id} href="#">
+                  <Avatar initials={account.name.charAt(0)} />
+                  <SidebarLabel>{account.name}</SidebarLabel>
                 </SidebarItem>
               ))}
+              <SidebarItem href="/accounts/new">
+                <PlusIcon />
+                <SidebarLabel>New account</SidebarLabel>
+              </SidebarItem>
             </SidebarSection>
 
             <SidebarSpacer />

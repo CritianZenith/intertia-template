@@ -10,6 +10,7 @@ A purpose-built project management tool built with modern Rails 8 technologies. 
 - TailwindCSS
 - Vite Rails
 - Inertia.js + React
+- Apollo Client + GraphQL
 - Solid Cable
 - Solid Queue
 - Solid Cache
@@ -62,3 +63,14 @@ Access the application at `http://localhost:3000`
 - Background jobs processed by SolidQueue
 - Real-time updates via SolidCable
 - Caching through SolidCache (no Redis dependency)
+
+## GraphQL and Apollo Client
+
+This application uses GraphQL with Apollo Client for data fetching. The Apollo Client is configured to work with Rails' CSRF protection.
+
+For detailed information about the Apollo Client setup, see the [Apollo Client Setup Documentation](docs/apollo-client-setup.md).
+
+Key features:
+- GraphQL API endpoint at `/graphql`
+- Apollo Client configured with CSRF token handling
+- Complete integration with Inertia.js and React components

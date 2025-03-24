@@ -1,0 +1,11 @@
+---
+description: 
+globs: *.tsx,*.jsx
+alwaysApply: false
+---
+
+# Use React, Apollo and Tailwind
+
+[ui-components.md](mdc:app/javascript/components/ui/ui-components.md)
+
+
