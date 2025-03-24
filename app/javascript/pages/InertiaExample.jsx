@@ -4,7 +4,7 @@ import { useState } from "react";
 import inertiaSvg from "/assets/inertia.svg";
 import reactSvg from "/assets/react.svg";
 import viteRubySvg from "/assets/vite_ruby.svg";
-import { Textarea } from "../components/textarea";
+import { Textarea } from "../components/ui/textarea";
 
 export default function InertiaExample({ name }) {
   const [count, setCount] = useState(0);

@@ -4,10 +4,10 @@ import Account from "./Account";
 import { AccountType } from "./types";
 
 // Import your custom UI components
-import { Heading } from "../../components/heading";
-import { Divider } from "../../components/divider";
-import { Button } from "../../components/button";
-import { Alert } from "../../components/alert"; // Assume an Alert component for flash messages
+import { Heading } from "../../components/ui/heading";
+import { Divider } from "../../components/ui/divider";
+import { Button } from "../../components/ui/button";
+import { Alert } from "../../components/ui/alert"; // Assume an Alert component for flash messages
 
 interface IndexProps {
   accounts: AccountType[];

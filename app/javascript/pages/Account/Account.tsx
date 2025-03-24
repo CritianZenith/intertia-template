@@ -1,5 +1,5 @@
 import { AccountType } from "./types";
-import { Text } from "../../components/text"; // Assuming you have a Text component
+import { Text } from "../../components/ui/text"; // Assuming you have a Text component
 
 interface AccountProps {
   account: AccountType;

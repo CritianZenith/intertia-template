@@ -3,9 +3,9 @@ import Form from "./Form";
 import { AccountType } from "./types";
 
 // Import your custom UI components
-import { Heading } from "../../components/heading";
-import { Divider } from "../../components/divider";
-import { Button } from "../../components/button";
+import { Heading } from "../../components/ui/heading";
+import { Divider } from "../../components/ui/divider";
+import { Button } from "../../components/ui/button";
 
 interface EditProps {
   account: AccountType;

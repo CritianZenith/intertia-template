@@ -1,4 +1,4 @@
-import { Avatar } from "../components/avatar";
+import { Avatar } from "../components/ui/avatar";
 import {
   Dropdown,
   DropdownButton,
@@ -6,13 +6,13 @@ import {
   DropdownItem,
   DropdownLabel,
   DropdownMenu,
-} from "../components/dropdown";
+} from "../components/ui/dropdown";
 import {
   Navbar,
   NavbarItem,
   NavbarSection,
   NavbarSpacer,
-} from "../components/navbar";
+} from "../components/ui/navbar";
 import {
   Sidebar,
   SidebarBody,
@@ -23,8 +23,8 @@ import {
   SidebarLabel,
   SidebarSection,
   SidebarSpacer,
-} from "../components/sidebar";
-import { SidebarLayout } from "../components/sidebar-layout";
+} from "../components/ui/sidebar";
+import { SidebarLayout } from "../components/ui/sidebar-layout";
 
 import {
   ArrowRightStartOnRectangleIcon,

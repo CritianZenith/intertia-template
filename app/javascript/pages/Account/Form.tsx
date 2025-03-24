@@ -3,11 +3,11 @@ import { FormEvent } from "react";
 import { AccountFormType, AccountType } from "./types";
 
 // Import your custom UI components
-import { Heading, Subheading } from "../../components/heading";
-import { Divider } from "../../components/divider";
-import { Text } from "../../components/text";
-import { Input } from "../../components/input";
-import { Button } from "../../components/button";
+import { Heading, Subheading } from "../../components/ui/heading";
+import { Divider } from "../../components/ui/divider";
+import { Text } from "../../components/ui/text";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 
 interface FormProps {
   account: AccountType;
