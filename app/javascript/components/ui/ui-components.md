@@ -36,27 +36,31 @@ The following UI components are available:
 ## Usage Guidelines
 
 1. **Always import from the UI components directory**:
+
    ```tsx
    // ✅ Correct way to import
    import { Button } from "~/components/ui/button";
    import { Input } from "~/components/ui/input";
-   
+
    // ❌ Avoid creating custom components that duplicate functionality
    // Don't create your own button or input components
    ```
 
 2. **Read the component source code documentation**:
    Before using a component, check its source file to understand:
+
    - Available props
    - Variants and options
    - Usage patterns
 
 3. **Maintain consistent styling**:
+
    - Use the provided components as-is whenever possible
    - Use Tailwind classes in the same pattern shown in the component examples
    - Follow the color schemes defined in the components
 
 4. **Component composition**:
+
    - Many components are designed to work together (e.g., `Alert` with `AlertTitle`, `AlertDescription`)
    - Check related component exports in the same file
 
@@ -75,14 +79,9 @@ function MyForm() {
   return (
     <div className="space-y-4">
       <Text>Please enter your information:</Text>
-      <Input 
-        type="email" 
-        placeholder="Email address" 
-        className="w-full" 
-      />
-      <Button color="blue">
-        Submit
-      </Button>
+      <Input type="email" placeholder="Email address" className="w-full" />
+      <Button color="blue">Submit</Button>
     </div>
   );
-} 
+}
+```

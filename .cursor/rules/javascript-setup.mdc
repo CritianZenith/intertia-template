@@ -12,6 +12,12 @@ alwaysApply: false
 
 - We have a list of graphql queries: [queries.ts](mdc:app/javascript/lib/queries.ts)
 
-- Always run `npm run lint` from our [package.json](mdc:package.json) in order to find any linting problems.
+## Using scripts
+
+[package.json](mdc:package.json)
+
+- Always run `npm run lint` from our package.json in order to find any linting problems.
+
+- Always run `npm run format:check` from our package.json to see if prettier styles should be applied. You can run `npm run format:check -- --write` to automatically apply prettier styles where possible
 
 

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 // Query to get all accounts the current user has access to
 export const GET_ACCOUNTS = gql`
@@ -22,4 +22,4 @@ export const GET_CURRENT_USER = gql`
       emailAddress
     }
   }
-`; 
+`;

@@ -33,29 +33,30 @@ export function AccountsDropdown({
 }: AccountsDropdownProps) {
   // Fetch accounts using Suspense-compatible query
   const { data } = useSuspenseQuery<AccountsData>(GET_ACCOUNTS);
-  
+
   // Extract accounts from the data
-  const accounts = data?.accounts?.edges?.map(edge => edge.node) || [];
+  const accounts = data?.accounts?.edges?.map((edge) => edge.node) || [];
   const currentAccount = accounts.length > 0 ? accounts[0] : null;
 
   return (
     <Dropdown>
       <DropdownButton as={as} className={buttonClassName}>
-        <Avatar initials={currentAccount ? currentAccount.name.charAt(0) : "?"} />
-        <SidebarLabel>{currentAccount ? currentAccount.name : "No accounts"}</SidebarLabel>
+        <Avatar
+          initials={currentAccount ? currentAccount.name.charAt(0) : "?"}
+        />
+        <SidebarLabel>
+          {currentAccount ? currentAccount.name : "No accounts"}
+        </SidebarLabel>
         <ChevronDownIcon />
       </DropdownButton>
-      <DropdownMenu
-        className={className}
-        anchor={anchor}
-      >
+      <DropdownMenu className={className} anchor={anchor}>
         {accounts.map((account) => (
           <DropdownItem key={account.id} href="#">
             <Avatar slot="icon" initials={account.name.charAt(0)} />
             <DropdownLabel>{account.name}</DropdownLabel>
           </DropdownItem>
         ))}
-        
+
         <DropdownDivider />
         <DropdownItem href="/accounts/new">
           <PlusIcon />

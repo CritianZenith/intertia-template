@@ -95,7 +95,9 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
       sidebar={
         <Sidebar>
           <SidebarHeader>
-            <Suspense fallback={<SidebarItem disabled>Loading accounts...</SidebarItem>}>
+            <Suspense
+              fallback={<SidebarItem disabled>Loading accounts...</SidebarItem>}
+            >
               <AccountsDropdown />
             </Suspense>
           </SidebarHeader>
@@ -129,7 +131,9 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
               </SidebarItem>
             </SidebarSection>
 
-            <Suspense fallback={<SidebarItem disabled>Loading accounts...</SidebarItem>}>
+            <Suspense
+              fallback={<SidebarItem disabled>Loading accounts...</SidebarItem>}
+            >
               <AccountsList className="max-lg:hidden" />
             </Suspense>
 

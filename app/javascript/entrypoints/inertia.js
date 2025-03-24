@@ -38,11 +38,7 @@ createInertiaApp({
     if (el) {
       // Wrap the app with ApolloClientProvider
       createRoot(el).render(
-        createElement(
-          ApolloClientProvider,
-          null, 
-          createElement(App, props)
-        )
+        createElement(ApolloClientProvider, null, createElement(App, props)),
       );
     } else {
       console.error(
