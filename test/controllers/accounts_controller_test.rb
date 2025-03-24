@@ -5,7 +5,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     @account = accounts(:one)
     @user = users(:one)
     # Sign in as a user
-    post session_path, params: { email_address: @user.email_address, password: "password" }
+    sign_in_as(@user)
   end
 
   test "should get index" do

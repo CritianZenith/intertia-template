@@ -13,7 +13,7 @@ class GraphqlControllerTest < ActionDispatch::IntegrationTest
     @account = accounts(:one)
 
     # Sign in as a user
-    post session_path, params: { email_address: @user.email_address, password: "password" }
+    sign_in_as(@user)
   end
 
   test "should return current user with me query" do
@@ -159,7 +159,7 @@ class GraphqlControllerTest < ActionDispatch::IntegrationTest
     # Sign in as a different user who doesn't have access to the account
     delete session_path
     @user2 = users(:two)
-    post session_path, params: { email_address: @user2.email_address, password: "password" }
+    sign_in_as(@user2)
 
     # Try to access account one which user two doesn't have access to
     global_id = ManagerSchema.id_from_object(@account, Types::AccountType, {})
