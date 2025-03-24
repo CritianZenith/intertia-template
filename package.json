@@ -1,7 +1,6 @@
 {
   "name": "manager",
   "private": true,
-  "type": "module",
   "scripts": {
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix app/javascript",
     "format": "prettier --write app/javascript",
