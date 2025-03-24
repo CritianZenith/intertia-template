@@ -1,0 +1,19 @@
+---
+description: 
+globs: *.rb,*.ru,Gemfile,*.yml,*.erb
+alwaysApply: false
+---
+
+# Ruby on Rails
+
+- [README.md](mdc:README.md)
+
+- We have rails tests setup. To run the ruby on rails test suite, run `bin/rails test`. Always run tests after modifying code to ensure our existing application still works
+
+- We can run `bin/brakeman` to test our app security. After major changes (like the implementation of a completely new controller), we should run `bin/brakeman` to look for security issues
+
+- We can run `bin/rubocop` to check for linting errors. Try to follow this `.rubocop.yml`:
+```yml
+# Omakase Ruby styling for Rails
+inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+```

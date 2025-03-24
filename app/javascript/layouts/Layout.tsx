@@ -1,4 +1,4 @@
-import { Avatar } from "../components/ui/avatar";
+import { Avatar } from "~/components/ui/avatar";
 import {
   Dropdown,
   DropdownButton,
@@ -6,33 +6,31 @@ import {
   DropdownItem,
   DropdownLabel,
   DropdownMenu,
-} from "../components/ui/dropdown";
+} from "~/components/ui/dropdown";
 import {
   Navbar,
   NavbarItem,
   NavbarSection,
   NavbarSpacer,
-} from "../components/ui/navbar";
+} from "~/components/ui/navbar";
 import {
   Sidebar,
   SidebarBody,
   SidebarFooter,
   SidebarHeader,
-  SidebarHeading,
   SidebarItem,
   SidebarLabel,
   SidebarSection,
   SidebarSpacer,
-} from "../components/ui/sidebar";
-import { SidebarLayout } from "../components/ui/sidebar-layout";
+} from "~/components/ui/sidebar";
+import { SidebarLayout } from "~/components/ui/sidebar-layout";
+import { AccountsDropdown } from "~/components/AccountsDropdown";
+import { AccountsList } from "~/components/AccountsList";
 
 import {
   ArrowRightStartOnRectangleIcon,
-  ChevronDownIcon,
   ChevronUpIcon,
-  Cog8ToothIcon,
   LightBulbIcon,
-  PlusIcon,
   ShieldCheckIcon,
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
@@ -46,24 +44,8 @@ import {
 } from "@heroicons/react/20/solid";
 import { MenuItemsProps } from "@headlessui/react";
 import { usePage } from "@inertiajs/react";
-import { useQuery } from "@apollo/client";
-import { GET_ACCOUNTS } from "../lib/queries";
 
 type AnchorProps = MenuItemsProps["anchor"];
-
-// Interface for the account data returned from GraphQL
-interface Account {
-  id: string;
-  name: string;
-}
-
-interface AccountsData {
-  accounts: {
-    edges: {
-      node: Account;
-    }[];
-  };
-}
 
 function AccountDropdownMenu({ anchor }: { anchor: AnchorProps }) {
   return (
@@ -92,13 +74,7 @@ function AccountDropdownMenu({ anchor }: { anchor: AnchorProps }) {
 
 export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   const { url } = usePage();
-  let pathname = url;
-  
-  // Fetch accounts from GraphQL
-  const { loading, error, data } = useQuery<AccountsData>(GET_ACCOUNTS);
-  
-  // Extract accounts from the data if available
-  const accounts = data?.accounts?.edges?.map(edge => edge.node) || [];
+  const pathname = url;
 
   return (
     <SidebarLayout
@@ -118,42 +94,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
       sidebar={
         <Sidebar>
           <SidebarHeader>
-            <Dropdown>
-              <DropdownButton as={SidebarItem}>
-                <Avatar initials={accounts.length > 0 ? accounts[0].name.charAt(0) : "M"} />
-                <SidebarLabel>{accounts.length > 0 ? accounts[0].name : "Loading..."}</SidebarLabel>
-                <ChevronDownIcon />
-              </DropdownButton>
-              <DropdownMenu
-                className="min-w-80 lg:min-w-64"
-                anchor="bottom start"
-              >
-                {loading && (
-                  <DropdownItem disabled>
-                    <DropdownLabel>Loading accounts...</DropdownLabel>
-                  </DropdownItem>
-                )}
-                
-                {error && (
-                  <DropdownItem disabled>
-                    <DropdownLabel>Error loading accounts</DropdownLabel>
-                  </DropdownItem>
-                )}
-                
-                {!loading && !error && accounts.map((account) => (
-                  <DropdownItem key={account.id} href="#">
-                    <Avatar slot="icon" initials={account.name.charAt(0)} />
-                    <DropdownLabel>{account.name}</DropdownLabel>
-                  </DropdownItem>
-                ))}
-                
-                <DropdownDivider />
-                <DropdownItem href="/accounts/new">
-                  <PlusIcon />
-                  <DropdownLabel>New account&hellip;</DropdownLabel>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <AccountsDropdown />
           </SidebarHeader>
 
           <SidebarBody>
@@ -185,21 +126,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
               </SidebarItem>
             </SidebarSection>
 
-            <SidebarSection className="max-lg:hidden">
-              <SidebarHeading>Your Accounts</SidebarHeading>
-              {loading && <SidebarItem disabled>Loading accounts...</SidebarItem>}
-              {error && <SidebarItem disabled>Error loading accounts</SidebarItem>}
-              {!loading && !error && accounts.map((account) => (
-                <SidebarItem key={account.id} href="#">
-                  <Avatar initials={account.name.charAt(0)} />
-                  <SidebarLabel>{account.name}</SidebarLabel>
-                </SidebarItem>
-              ))}
-              <SidebarItem href="/accounts/new">
-                <PlusIcon />
-                <SidebarLabel>New account</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
+            <AccountsList className="max-lg:hidden" />
 
             <SidebarSpacer />
 

@@ -3,14 +3,6 @@ import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
-import path from "path";
-import { fileURLToPath } from "url";
-
-// Get the directory name of the current module
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// Import our custom rule
-const useUIComponentsRule = await import(path.join(__dirname, "/app/javascript/lib/eslint-rules/use-ui-components.js"));
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -43,22 +35,6 @@ export default [
     settings: {
       react: {
         version: "detect",
-      },
-    },
-  },
-  {
-    // Apply our custom rule only to React component files
-    files: ["**/*.{jsx,tsx}"],
-    rules: {
-      // Add our custom rule for UI components
-      "use-ui-components": "warn", // Use "warn" initially to avoid breaking builds
-    },
-    plugins: {
-      // Add our custom plugin with the rule
-      custom: {
-        rules: {
-          "use-ui-components": useUIComponentsRule.default,
-        },
       },
     },
   },
