@@ -44,9 +44,12 @@ import {
   Square2StackIcon,
   TicketIcon,
 } from "@heroicons/react/20/solid";
+import { MenuItemsProps } from "@headlessui/react";
 import { usePage } from "@inertiajs/react";
 
-function AccountDropdownMenu({ anchor }) {
+type AnchorProps = MenuItemsProps["anchor"];
+
+function AccountDropdownMenu({ anchor }: { anchor: AnchorProps }) {
   return (
     <DropdownMenu className="min-w-64" anchor={anchor}>
       <DropdownItem href="#">
@@ -71,7 +74,7 @@ function AccountDropdownMenu({ anchor }) {
   );
 }
 
-export function ApplicationLayout({ children }) {
+export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   const { url } = usePage();
   let pathname = url;
 
@@ -123,7 +126,7 @@ export function ApplicationLayout({ children }) {
                 <DropdownDivider />
                 <DropdownItem href="#">
                   <PlusIcon />
-                  <DropdownLabel>New team&hellip;</DropdownLabel>
+                  <DropdownLabel>New account&hellip;</DropdownLabel>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
