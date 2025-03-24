@@ -2,30 +2,19 @@
 
 module Types
   class QueryType < Types::BaseObject
-    field :node, Types::NodeType, null: true, description: "Fetches an object given its ID." do
-      argument :id, ID, required: true, description: "ID of the object."
-    end
-
-    def node(id:)
-      context.schema.object_from_id(id, context)
-    end
-
-    field :nodes, [Types::NodeType, null: true], null: true, description: "Fetches a list of objects given a list of IDs." do
-      argument :ids, [ID], required: true, description: "IDs of the objects."
-    end
-
-    def nodes(ids:)
-      ids.map { |id| context.schema.object_from_id(id, context) }
-    end
+    # Used by Relay to lookup objects by UUID:
+    include GraphQL::Types::Relay::HasNodeField
 
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
+    field :accounts, Types::AccountType.connection_type, null: true, description: "Returns a list of accounts"
+    def accounts
+      context[:current_user]&.accounts
+    end
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    field :me, Types::UserType, null: true, description: "Returns the currently logged in user"
+    def me
+      context[:current_user]
     end
   end
 end
