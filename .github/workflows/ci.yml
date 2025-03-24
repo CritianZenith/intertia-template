@@ -88,9 +88,6 @@ jobs:
           node-version-file: .node-version
           cache: npm
 
-      - name: Install Node dependencies
-        run: npm ci
-
       - name: Run tests
         env:
           RAILS_ENV: test
