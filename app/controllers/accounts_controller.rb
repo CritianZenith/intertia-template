@@ -41,7 +41,7 @@ class AccountsController < ApplicationController
     @account = Account.new(account_params)
 
     if @account.save
-      @account.account_users.create(user: current_user, role: "admin")
+      @account.account_users.create(user: Current.user, role: "admin")
       redirect_to @account, notice: "Account was successfully created."
     else
       redirect_to new_account_url, inertia: { errors: @account.errors }
