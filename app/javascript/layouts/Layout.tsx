@@ -129,7 +129,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
           {/* Main content */}
           <main className="flex-1 overflow-y-auto overflow-x-hidden lg:pt-4 pb-safe">
             <div
-              className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto pb-6`}
+              className={`w-full ${!isNavExpanded ? "lg:px-16" : ""} px-4 max-w-full mx-auto pb-6`}
             >
               {children}
             </div>

@@ -70,7 +70,7 @@ export function NavDesktop({
             </span>
             <button
               onClick={toggleExpanded}
-              className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               <Bars3Icon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
             </button>
@@ -107,7 +107,7 @@ export function NavDesktop({
       {!isExpanded && (
         <button
           onClick={toggleExpanded}
-          className="hidden lg:flex fixed top-4 left-4 z-10 p-2 rounded-md bg-white dark:bg-gray-800 shadow-md hover:shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-200"
+          className="hidden lg:flex fixed top-4 left-4 z-10 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
         >
           <Bars3Icon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
         </button>
