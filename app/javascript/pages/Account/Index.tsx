@@ -17,12 +17,14 @@ import {
   DropdownItem,
 } from "@heroui/react";
 
+import { ApplicationLayout } from "../../layouts/Layout";
+
 interface IndexProps {
   accounts: AccountType[];
   flash: { notice?: string };
 }
 
-export default function Index({ accounts, flash }: IndexProps) {
+function Index({ accounts, flash }: IndexProps) {
   const [flashVisible, setFlashVisible] = useState(!!flash.notice);
   const [searchQuery, setSearchQuery] = useState("");
   
@@ -136,3 +138,7 @@ export default function Index({ accounts, flash }: IndexProps) {
     </>
   );
 }
+
+Index.layout = (page: React.ReactNode) => <ApplicationLayout>{page}</ApplicationLayout>;
+
+export default Index;

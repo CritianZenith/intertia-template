@@ -1,10 +1,21 @@
 import { createInertiaApp } from "@inertiajs/react";
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
-import { HeroUIProvider } from "@heroui/react";
+import { router } from "@inertiajs/react";
 
 import { ApplicationLayout } from "../layouts/Layout";
 import { ApolloClientProvider } from "../lib/apollo";
+
+// Configure the router for HeroUI components
+const navigate = (href, options = {}) => {
+  router.visit(href, {
+    preserveScroll: options.scroll === false ? false : true,
+    ...options
+  });
+};
+
+// Convert route paths to full URLs
+const useHref = (href) => href;
 
 createInertiaApp({
   progress: {
@@ -27,30 +38,25 @@ createInertiaApp({
 
   resolve: (name) => {
     // Import all pages, including ones in the pages/Account directory
-    const pages = import.meta.glob("../pages/**/*.*");
+    const pages = import.meta.glob("../pages/**/*.*", { eager: true });
     const page = pages[`../pages/${name}.tsx`] || pages[`../pages/${name}.jsx`];
     if (!page) {
       console.error(`Missing Inertia page component: '${name}.jsx'`);
     }
 
-    return page().then(module => {
-      const component = module.default;
-      // Set ApplicationLayout as the default layout if one isn't already defined
-      if (!component.layout) {
-        component.layout = (page) => createElement(ApplicationLayout, null, page);
-      }
-      return component;
-    });
+    page.default.layout ||= (page) => createElement(ApplicationLayout, null, page);
+
+    return page;
   },
 
   setup({ el, App, props }) {
     if (el) {
-      // Wrap the app with ApolloClientProvider and HeroUIProvider
+      // Wrap the app with ApolloClientProvider
       createRoot(el).render(
         createElement(
           ApolloClientProvider,
           null,
-          createElement(HeroUIProvider, null, createElement(App, props)),
+          createElement(App, props),
         ),
       );
     } else {

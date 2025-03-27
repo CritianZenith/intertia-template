@@ -1,11 +1,13 @@
 import { AccountType } from "./types";
 import { User, Badge, Card, Chip } from "@heroui/react";
 
+import { ApplicationLayout } from "../../layouts/Layout";
+
 interface AccountProps {
   account: AccountType;
 }
 
-export default function Account({ account }: AccountProps) {
+function Account({ account }: AccountProps) {
   // Generate a stable color based on account id for consistent visuals
   const colorOptions = ["primary", "secondary", "success", "warning"];
   const accountColor = colorOptions[account.id % colorOptions.length];
@@ -34,3 +36,7 @@ export default function Account({ account }: AccountProps) {
     </div>
   );
 }
+
+Account.layout = (page: React.ReactNode) => <ApplicationLayout>{page}</ApplicationLayout>;
+
+export default Account;

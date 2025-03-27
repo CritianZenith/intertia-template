@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { usePage } from "@inertiajs/react";
+import { usePage, router } from "@inertiajs/react";
 import {
   Navbar,
   NavbarBrand,
@@ -14,6 +14,7 @@ import {
   DrawerFooter,
   Divider,
   Switch,
+  HeroUIProvider,
 } from "@heroui/react";
 import { AccountsList } from "../components/AccountsList";
 import {
@@ -27,6 +28,18 @@ import {
 } from "@heroicons/react/24/outline";
 import { NavDesktop } from "./NavDesktop";
 import { NavMobile } from "./NavMobile";
+
+// Configure the router for HeroUI components
+const navigate = (href: string, options: { scroll?: boolean } = {}) => {
+  router.push({
+    url: href,
+    preserveScroll: options.scroll === false ? false : true,
+    ...options
+  });
+};
+
+// Convert route paths to full URLs
+const useHref = (href: string) => href;
 
 export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   const { url } = usePage();
@@ -46,9 +59,13 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
     ) {
       setIsDarkMode(true);
       document.documentElement.classList.add("dark");
+      // Ensure cookie is in sync
+      document.cookie = "theme=dark; path=/; max-age=31536000; SameSite=Lax";
     } else {
       setIsDarkMode(false);
       document.documentElement.classList.remove("dark");
+      // Ensure cookie is in sync
+      document.cookie = "theme=light; path=/; max-age=31536000; SameSite=Lax";
     }
   }, []);
 
@@ -57,10 +74,22 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
     if (isDarkMode) {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      document.cookie = "theme=light; path=/; max-age=31536000; SameSite=Lax";
+      // Update theme-color meta tag
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', '#f9fafb');
+      }
       setIsDarkMode(false);
     } else {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
+      document.cookie = "theme=dark; path=/; max-age=31536000; SameSite=Lax";
+      // Update theme-color meta tag
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', '#111827');
+      }
       setIsDarkMode(true);
     }
   };
@@ -136,53 +165,55 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900 overflow-hidden">
-      {/* Desktop Navigation */}
-      <NavDesktop 
-        pathname={pathname}
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-        isExpanded={isNavExpanded}
-        toggleExpanded={toggleNavExpanded}
-      />
+    <HeroUIProvider navigate={navigate} useHref={useHref}>
+      <div className="flex h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden">
+        {/* Desktop Navigation */}
+        <NavDesktop 
+          pathname={pathname}
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+          isExpanded={isNavExpanded}
+          toggleExpanded={toggleNavExpanded}
+        />
 
-      {/* Mobile Navigation */}
-      <NavMobile
-        pathname={pathname}
-        isOpen={isSidebarOpen}
-        onOpenChange={setIsSidebarOpen}
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-      />
+        {/* Mobile Navigation */}
+        <NavMobile
+          pathname={pathname}
+          isOpen={isSidebarOpen}
+          onOpenChange={setIsSidebarOpen}
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+        />
 
-      {/* Content container that adjusts based on nav state */}
-      <div 
-        className={`flex flex-col flex-1 w-full max-w-full transition-all duration-300 ease-in-out overflow-hidden ${
-          isNavExpanded ? "lg:ml-64" : "lg:ml-0"
-        }`}
-      >
-        {/* Mobile navbar */}
-        <Navbar shouldHideOnScroll className="lg:hidden bg-gray-100 dark:bg-gray-900 dark:text-white">
-          <NavbarContent>
-            <NavbarItem>
-              <Button
-                isIconOnly
-                variant="light"
-                onClick={() => setIsSidebarOpen(true)}
-              >
-                <Bars3Icon className="h-6 w-6" />
-              </Button>
-            </NavbarItem>
-          </NavbarContent>
-        </Navbar>
+        {/* Content container that adjusts based on nav state */}
+        <div 
+          className={`flex flex-col flex-1 w-full max-w-full transition-all duration-300 ease-in-out overflow-hidden ${
+            isNavExpanded ? "lg:ml-64" : "lg:ml-0"
+          }`}
+        >
+          {/* Mobile navbar */}
+          <Navbar shouldHideOnScroll className="lg:hidden bg-gray-100 dark:bg-gray-900 dark:text-white">
+            <NavbarContent>
+              <NavbarItem>
+                <Button
+                  isIconOnly
+                  variant="light"
+                  onClick={() => setIsSidebarOpen(true)}
+                >
+                  <Bars3Icon className="h-6 w-6" />
+                </Button>
+              </NavbarItem>
+            </NavbarContent>
+          </Navbar>
 
-        {/* Main content */}
-        <main className="flex-1 overflow-auto dark:bg-gray-900 dark:text-gray-200 lg:pt-4">
-          <div className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto`}>
-            {children}
-          </div>
-        </main>
+          {/* Main content */}
+          <main className="flex-1 overflow-auto dark:bg-gray-900 dark:text-gray-200 lg:pt-4">
+            <div className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto`}>
+              {children}
+            </div>
+          </main>
+        </div>
       </div>
-    </div>
+    </HeroUIProvider>
   );
 }
