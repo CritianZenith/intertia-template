@@ -144,13 +144,12 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
 
         {/* Content container that adjusts based on nav state */}
         <div 
-          className={`flex flex-col flex-1 w-full max-w-full transition-all duration-300 ease-in-out overflow-hidden ${
+          className={`flex flex-col flex-1 w-full max-w-full transition-all duration-300 ease-in-out ${
             isNavExpanded ? "lg:ml-64" : "lg:ml-0"
           }`}
         >
           {/* Mobile navbar */}
           <Button
-            className="lg:hidden bg-gray-100 dark:bg-gray-900 dark:text-white fixed top-2 left-2"
             isIconOnly
             variant="light"
             onPress={() => setIsSidebarOpen(true)}
