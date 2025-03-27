@@ -1,13 +1,17 @@
 import { useForm, type InertiaFormProps } from "@inertiajs/react";
 import { FormEvent } from "react";
 import { AccountFormType, AccountType } from "./types";
-
-// Import your custom UI components
-import { Heading, Subheading } from "../../components/ui/heading";
-import { Divider } from "../../components/ui/divider";
-import { Text } from "../../components/ui/text";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
+import {
+  Input,
+  Button,
+  Divider,
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Tabs,
+  Tab,
+} from "@heroui/react";
 
 interface FormProps {
   account: AccountType;
@@ -27,36 +31,87 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} method="post" className="mx-auto max-w-4xl">
-      <Heading>Account</Heading>
-      <Divider className="my-10 mt-6" />
+    <form onSubmit={handleSubmit} method="post" className="mx-auto max-w-5xl">
+      <Card className="shadow-sm">
+        <CardHeader className="bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-2xl font-bold">Account Details</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            Manage basic account information and settings
+          </p>
+        </CardHeader>
+        <Divider />
 
-      <section className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-        <div className="space-y-1">
-          <Subheading>Name</Subheading>
-          <Text>This is the name associated with your account.</Text>
-        </div>
-        <div>
-          <Input
-            aria-label="Name"
-            name="name"
-            value={data.name}
-            onChange={(e) => setData("name", e.target.value)}
-          />
-          {/* Display error if present */}
-          {errors.name && (
-            <div className="mt-1 text-sm text-red-500">{errors.name}</div>
-          )}
-        </div>
-      </section>
+        <Tabs aria-label="Account sections" className="mx-4 mt-2">
+          <Tab key="details" title="General Information">
+            <CardBody className="px-4 py-6">
+              <div className="space-y-8">
+                {/* Account Information Section */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">
+                    Basic Information
+                  </h3>
+                  <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <Input
+                        label="Account Name"
+                        name="name"
+                        value={data.name}
+                        onChange={(e) => setData("name", e.target.value)}
+                        isInvalid={Boolean(errors.name)}
+                        errorMessage={errors.name}
+                        placeholder="Enter account name"
+                        className="w-full"
+                        labelPlacement="outside"
+                        description="This is the primary name associated with your account"
+                      />
+                    </div>
 
-      <Divider className="my-10" soft />
+                    {/* Space for future fields */}
+                    <div className="space-y-2 opacity-50">
+                      <Input
+                        label="Account Type"
+                        disabled
+                        placeholder="Will be available soon"
+                        className="w-full"
+                        labelPlacement="outside"
+                        description="Select the type of account (coming soon)"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-      <div className="flex justify-end gap-4">
-        <Button type="submit" disabled={processing}>
-          {submitText}
-        </Button>
-      </div>
+                {/* Placeholder for future sections */}
+                <div className="opacity-50">
+                  <h3 className="text-lg font-semibold mb-4">
+                    Additional Settings
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                    More account settings will be available in the future
+                  </p>
+                </div>
+              </div>
+            </CardBody>
+          </Tab>
+          <Tab key="permissions" title="Permissions" disabled>
+            <CardBody>
+              <p>Permission management will be available soon</p>
+            </CardBody>
+          </Tab>
+        </Tabs>
+
+        <Divider />
+        <CardFooter className="flex justify-end gap-4 bg-gray-50 dark:bg-gray-800">
+          <Button
+            type="submit"
+            color="primary"
+            isLoading={processing}
+            isDisabled={processing}
+            size="lg"
+          >
+            {submitText}
+          </Button>
+        </CardFooter>
+      </Card>
     </form>
   );
 }

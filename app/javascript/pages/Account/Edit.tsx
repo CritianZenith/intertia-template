@@ -1,11 +1,8 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
-
-// Import your custom UI components
-import { Heading } from "../../components/ui/heading";
-import { Divider } from "../../components/ui/divider";
-import { Button } from "../../components/ui/button";
+import { Button, Divider, Breadcrumbs, BreadcrumbItem } from "@heroui/react";
+import { Link } from "@inertiajs/react";
 
 interface EditProps {
   account: AccountType;
@@ -16,8 +13,18 @@ export default function Edit({ account }: EditProps) {
     <>
       <Head title="Editing Account" />
 
-      <Heading className="my-6">Editing Account</Heading>
-      <Divider className="mb-6" soft />
+      <Breadcrumbs className="mb-6">
+        <BreadcrumbItem>
+          <Link href="/accounts">Accounts</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <Link href={`/accounts/${account.id}`}>{account.name}</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>Edit</BreadcrumbItem>
+      </Breadcrumbs>
+
+      <h1 className="text-3xl font-bold my-6">Editing Account</h1>
+      <Divider className="mb-6" />
 
       <Form
         account={account}
@@ -28,15 +35,13 @@ export default function Edit({ account }: EditProps) {
         submitText="Update Account"
       />
 
-      <Divider className="my-6" soft />
-
-      <div className="flex justify-end gap-4">
-        <Link href={`/accounts/${account.id}`}>
-          <Button plain>Show this account</Button>
-        </Link>
-        <Link href="/accounts">
-          <Button plain>Back to accounts</Button>
-        </Link>
+      <div className="flex justify-end gap-4 mt-6">
+        <Button as={Link} href={`/accounts/${account.id}`} variant="bordered">
+          Show this account
+        </Button>
+        <Button as={Link} href="/accounts" variant="light">
+          Back to accounts
+        </Button>
       </div>
     </>
   );

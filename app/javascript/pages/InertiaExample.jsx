@@ -4,9 +4,11 @@ import { useState } from "react";
 import inertiaSvg from "/assets/inertia.svg";
 import reactSvg from "/assets/react.svg";
 import viteRubySvg from "/assets/vite_ruby.svg";
-import { Textarea } from "../components/ui/textarea";
+import { Textarea } from "@heroui/react";
 
-export default function InertiaExample({ name }) {
+import { ApplicationLayout } from "../layouts/Layout";
+
+function InertiaExample({ name }) {
   const [count, setCount] = useState(0);
 
   return (
@@ -74,3 +76,7 @@ export default function InertiaExample({ name }) {
     </>
   );
 }
+
+InertiaExample.layout = (page) => <ApplicationLayout>{page}</ApplicationLayout>;
+
+export default InertiaExample;

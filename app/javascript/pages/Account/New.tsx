@@ -1,12 +1,8 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
-
-// Import your custom UI components
-import { Heading } from "../../components/ui/heading";
-import { Divider } from "../../components/ui/divider";
-import { Button } from "../../components/ui/button";
-
+import { Button, Divider, Breadcrumbs, BreadcrumbItem } from "@heroui/react";
+import { Link } from "@inertiajs/react";
 interface NewProps {
   account: AccountType;
 }
@@ -16,8 +12,15 @@ export default function New({ account }: NewProps) {
     <>
       <Head title="New Account" />
 
-      <Heading className="my-6">New Account</Heading>
-      <Divider className="mb-6" soft />
+      <Breadcrumbs className="mb-6">
+        <BreadcrumbItem>
+          <Link href="/accounts">Accounts</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>New</BreadcrumbItem>
+      </Breadcrumbs>
+
+      <h1 className="text-3xl font-bold my-6">New Account</h1>
+      <Divider className="mb-6" />
 
       <Form
         account={account}
@@ -28,12 +31,10 @@ export default function New({ account }: NewProps) {
         submitText="Create Account"
       />
 
-      <Divider className="my-6" soft />
-
-      <div className="flex justify-end">
-        <Link href="/accounts">
-          <Button plain>Back to accounts</Button>
-        </Link>
+      <div className="flex justify-end mt-6">
+        <Button as={Link} href="/accounts" variant="light">
+          Back to accounts
+        </Button>
       </div>
     </>
   );

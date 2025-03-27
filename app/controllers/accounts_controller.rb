@@ -66,7 +66,9 @@ class AccountsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
-      @account = Account.find(params[:id])
+      @account = Account.find_by(id: params[:id])
+      @account ||= GlobalID::Locator.locate(params[:id], expected_type: Account)
+      raise ActiveRecord::RecordNotFound, "Couldn't find Account" if @account.nil?
     end
 
     # Only allow a list of trusted parameters through.

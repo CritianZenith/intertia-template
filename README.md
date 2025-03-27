@@ -74,3 +74,7 @@ Key features:
 - GraphQL API endpoint at `/graphql`
 - Apollo Client configured with CSRF token handling
 - Complete integration with Inertia.js and React components
+
+## Frontend Documentation
+
+- [Inertia.js Navigation with HeroUI Components](app/javascript/docs/NAVIGATION.md) - Best practices for SPA navigation
