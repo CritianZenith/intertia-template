@@ -78,7 +78,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
       // Update theme-color meta tag
       const themeColorMeta = document.querySelector('meta[name="theme-color"]');
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', '#f9fafb');
+        themeColorMeta.setAttribute('content', '#f3f4f6');
       }
       setIsDarkMode(false);
     } else {
@@ -121,9 +121,21 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
     </div>
   );
 
+  // Fix for iOS Safari height issues - use CSS variables for viewport height
+  useEffect(() => {
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    
+    setVh();
+    window.addEventListener('resize', setVh);
+    return () => window.removeEventListener('resize', setVh);
+  }, []);
+
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-[100vh] h-[calc(var(--vh,1vh)*100)] overflow-hidden">
         {/* Desktop Navigation */}
         <NavDesktop 
           pathname={pathname}
@@ -149,17 +161,19 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
           }`}
         >
           {/* Mobile navbar */}
-          <Button
-            isIconOnly
-            variant="light"
-            onPress={() => setIsSidebarOpen(true)}
-          >
-            <Bars3Icon className="h-6 w-6" />
-          </Button>
+          <div className="sticky top-0 z-10 bg-gray-100 dark:bg-gray-900 p-2 lg:hidden">
+            <Button
+              isIconOnly
+              variant="light"
+              onPress={() => setIsSidebarOpen(true)}
+            >
+              <Bars3Icon className="h-6 w-6" />
+            </Button>
+          </div>
 
           {/* Main content */}
-          <main className="flex-1 overflow-auto lg:pt-4">
-            <div className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto`}>
+          <main className="flex-1 overflow-y-auto overflow-x-hidden lg:pt-4 pb-safe">
+            <div className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto pb-6`}>
               {children}
             </div>
           </main>

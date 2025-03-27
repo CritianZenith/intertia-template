@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
     <% if theme == 'dark' %>
       <meta name="theme-color" content="#111827">
-    <% else %>
-      <meta name="theme-color" content="#f9fafb">
+    <% elsif theme == 'light' %>
+      <meta name="theme-color" content="#f3f4f6">
     <% end %>
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -21,7 +21,19 @@
     <%= vite_javascript_tag "inertia" %>
     <%= inertia_ssr_head %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
+    <style>
+      /* Prevent scroll bounce in iOS Safari */
+      html, body {
+        position: fixed;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+      /* Add safe area insets for notched iOS devices */
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    </style>
   </head>
 
   <body class="text-zinc-950 antialiased bg-gray-100 dark:bg-gray-900 dark:text-white">
