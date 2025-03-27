@@ -10,6 +10,11 @@ import {
   CardFooter,
   Alert,
   Divider,
+  Input,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
 } from "@heroui/react";
 
 interface IndexProps {
@@ -19,6 +24,11 @@ interface IndexProps {
 
 export default function Index({ accounts, flash }: IndexProps) {
   const [flashVisible, setFlashVisible] = useState(!!flash.notice);
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  const filteredAccounts = accounts.filter(account => 
+    account.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
@@ -34,38 +44,95 @@ export default function Index({ accounts, flash }: IndexProps) {
         </Alert>
       )}
 
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <h1 className="text-3xl font-bold">Accounts</h1>
         <Link href="/accounts/new">
-          <Button color="primary">Create New Account</Button>
+          <Button color="primary" size="lg">
+            Create New Account
+          </Button>
         </Link>
       </div>
 
+      <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div className="w-full sm:w-64">
+          <Input
+            placeholder="Search accounts..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            isClearable
+            className="w-full"
+          />
+        </div>
+        
+        <div className="flex gap-2">
+          <Dropdown>
+            <DropdownTrigger>
+              <Button variant="bordered">Sort By</Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Sort options">
+              <DropdownItem key="name">Name</DropdownItem>
+              <DropdownItem key="recent">Recently Created</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+      </div>
+      
       <Divider className="mb-6" />
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {accounts.map((account) => (
-          <Card key={account.id} className="shadow-sm">
-            <CardBody>
-              <Account account={account} />
-            </CardBody>
-            <Divider />
-            <CardFooter className="flex justify-end">
-              <Link href={`/accounts/${account.id}`}>
-                <Button variant="light" size="sm">
-                  View Details
+      {filteredAccounts.length > 0 ? (
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {filteredAccounts.map((account) => (
+            <Card key={account.id} className="shadow-sm hover:shadow-md transition-shadow">
+              <CardBody className="p-6">
+                <Account account={account} />
+              </CardBody>
+              <Divider />
+              <CardFooter className="flex justify-between items-center px-6 py-4">
+                <div className="text-sm text-gray-500">
+                  ID: {account.id}
+                </div>
+                <div className="flex gap-2">
+                  <Link href={`/accounts/${account.id}/edit`}>
+                    <Button size="sm" variant="flat">
+                      Edit
+                    </Button>
+                  </Link>
+                  <Link href={`/accounts/${account.id}`}>
+                    <Button size="sm" color="primary">
+                      View Details
+                    </Button>
+                  </Link>
+                </div>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <Card className="shadow-sm">
+          <CardBody className="p-8 text-center">
+            <div className="flex flex-col items-center justify-center py-8">
+              <div className="text-gray-400 mb-4 text-5xl">
+                <span role="img" aria-label="No accounts">📁</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">No accounts found</h3>
+              <p className="text-gray-500 mb-4">
+                {searchQuery ? `No accounts match "${searchQuery}"` : 'Create your first account to get started.'}
+              </p>
+              {searchQuery ? (
+                <Button color="primary" onClick={() => setSearchQuery("")}>
+                  Clear Search
                 </Button>
-              </Link>
-            </CardFooter>
-          </Card>
-        ))}
-
-        {accounts.length === 0 && (
-          <div className="col-span-full text-center py-8 text-gray-500">
-            No accounts found. Create your first account to get started.
-          </div>
-        )}
-      </div>
+              ) : (
+                <Link href="/accounts/new">
+                  <Button color="primary">
+                    Create Account
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </CardBody>
+        </Card>
+      )}
     </>
   );
 }

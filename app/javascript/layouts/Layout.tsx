@@ -25,11 +25,14 @@ import {
   SunIcon,
   MoonIcon,
 } from "@heroicons/react/24/outline";
+import { NavDesktop } from "./NavDesktop";
+import { NavMobile } from "./NavMobile";
 
 export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   const { url } = usePage();
   const pathname = url;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Initialize dark mode based on system preference or saved setting
@@ -60,6 +63,12 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
       localStorage.setItem("theme", "dark");
       setIsDarkMode(true);
     }
+  };
+
+  // Toggle nav expansion
+  const toggleNavExpanded = () => {
+    const newState = !isNavExpanded;
+    setIsNavExpanded(newState);
   };
 
   // Define navigation items
@@ -127,40 +136,33 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Desktop sidebar */}
-      <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
-        <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
-          <span className="text-xl font-bold dark:text-white">
-            Management App
-          </span>
-          <DarkModeToggle />
-        </div>
-        <div className="flex-1 flex flex-col overflow-y-auto p-4">
-          <nav className="flex-1 space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                  pathname === item.href
-                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300"
-                    : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-                }`}
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-          <Divider className="my-4" />
-          <AccountsList heading="Your Accounts" />
-        </div>
-      </div>
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900 overflow-hidden">
+      {/* Desktop Navigation */}
+      <NavDesktop 
+        pathname={pathname}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        isExpanded={isNavExpanded}
+        toggleExpanded={toggleNavExpanded}
+      />
 
-      {/* Mobile navbar and content */}
-      <div className="lg:pl-64 flex flex-col flex-1">
-        <Navbar className="lg:hidden border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+      {/* Mobile Navigation */}
+      <NavMobile
+        pathname={pathname}
+        isOpen={isSidebarOpen}
+        onOpenChange={setIsSidebarOpen}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
+
+      {/* Content container that adjusts based on nav state */}
+      <div 
+        className={`flex flex-col flex-1 w-full max-w-full transition-all duration-300 ease-in-out overflow-hidden ${
+          isNavExpanded ? "lg:ml-64" : "lg:ml-0"
+        }`}
+      >
+        {/* Mobile navbar */}
+        <Navbar shouldHideOnScroll className="lg:hidden bg-gray-100 dark:bg-gray-900 dark:text-white">
           <NavbarContent>
             <NavbarItem>
               <Button
@@ -171,21 +173,14 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
                 <Bars3Icon className="h-6 w-6" />
               </Button>
             </NavbarItem>
-            <NavbarBrand>
-              <span className="font-bold dark:text-white">Management App</span>
-            </NavbarBrand>
-            <NavbarItem className="ml-auto">
-              <DarkModeToggle />
-            </NavbarItem>
           </NavbarContent>
         </Navbar>
 
-        {/* Mobile sidebar */}
-        <MobileSidebar />
-
         {/* Main content */}
-        <main className="flex-1 p-4 overflow-y-auto dark:bg-gray-900 dark:text-gray-200">
-          {children}
+        <main className="flex-1 overflow-auto dark:bg-gray-900 dark:text-gray-200 lg:pt-4">
+          <div className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto`}>
+            {children}
+          </div>
         </main>
       </div>
     </div>

@@ -8,7 +8,17 @@ import { ApolloClientProvider } from "../lib/apollo";
 
 createInertiaApp({
   progress: {
-    delay: 250,
+    // The delay after which the progress bar will appear, in milliseconds...
+    delay: 100,
+
+    // The color of the progress bar...
+    color: '#29d',
+
+    // Whether to include the default NProgress styles...
+    includeCSS: true,
+
+    // Whether the NProgress spinner will be shown...
+    showSpinner: true,
   },
   // Set default page title
   // see https://inertia-rails.netlify.app/guide/title-and-meta
@@ -17,22 +27,20 @@ createInertiaApp({
 
   resolve: (name) => {
     // Import all pages, including ones in the pages/Account directory
-    const pages = import.meta.glob("../pages/**/*.*", {
-      eager: true,
-    });
+    const pages = import.meta.glob("../pages/**/*.*");
     const page = pages[`../pages/${name}.tsx`] || pages[`../pages/${name}.jsx`];
     if (!page) {
       console.error(`Missing Inertia page component: '${name}.jsx'`);
     }
 
-    // To use a default layout, import the Layout component
-    // and use the following lines.
-    // see https://inertia-rails.netlify.app/guide/pages#default-layouts
-    //
-    page.default.layout ||= (page) =>
-      createElement(ApplicationLayout, null, page);
-
-    return page;
+    return page().then(module => {
+      const component = module.default;
+      // Set ApplicationLayout as the default layout if one isn't already defined
+      if (!component.layout) {
+        component.layout = (page) => createElement(ApplicationLayout, null, page);
+      }
+      return component;
+    });
   },
 
   setup({ el, App, props }) {

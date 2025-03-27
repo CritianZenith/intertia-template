@@ -10,7 +10,11 @@ import {
   Card,
   CardBody,
   CardHeader,
+  CardFooter,
   Alert,
+  Divider,
+  Tabs,
+  Tab,
 } from "@heroui/react";
 
 interface ShowProps {
@@ -40,34 +44,113 @@ export default function Show({ account, flash }: ShowProps) {
         <BreadcrumbItem>{account.name}</BreadcrumbItem>
       </Breadcrumbs>
 
-      <h1 className="text-3xl font-bold my-6">Account: {account.name}</h1>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+        <h1 className="text-3xl font-bold">{account.name}</h1>
+        <div className="flex flex-wrap gap-2">
+          <Link href={`/accounts/${account.id}/edit`}>
+            <Button color="primary">Edit Account</Button>
+          </Link>
+          <Button
+            as="a"
+            href={`/accounts/${account.id}`}
+            color="danger"
+            variant="light"
+            data-method="delete"
+            data-confirm="Are you sure you want to delete this account?"
+          >
+            Delete
+          </Button>
+        </div>
+      </div>
 
-      <Card className="mb-6">
-        <CardHeader>
-          <h2 className="text-xl font-semibold">Account Details</h2>
-        </CardHeader>
-        <CardBody>
-          <Account account={account} />
-        </CardBody>
-      </Card>
-
-      <div className="flex justify-end gap-4">
-        <Link href={`/accounts/${account.id}/edit`}>
-          <Button color="primary">Edit this account</Button>
-        </Link>
-        <Link href="/accounts">
-          <Button variant="light">Back to accounts</Button>
-        </Link>
-
-        <Button
-          as="a"
-          href={`/accounts/${account.id}`}
-          color="danger"
-          data-method="delete"
-          data-confirm="Are you sure you want to delete this account?"
-        >
-          Delete this account
-        </Button>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <Card className="lg:col-span-2 shadow-sm">
+          <CardHeader className="bg-gray-50 dark:bg-gray-800">
+            <h2 className="text-xl font-semibold">Account Overview</h2>
+          </CardHeader>
+          <CardBody className="p-6">
+            <div className="mb-8">
+              <Account account={account} />
+            </div>
+            
+            <Tabs aria-label="Account sections">
+              <Tab key="details" title="Details">
+                <div className="py-4">
+                  <div className="mb-6">
+                    <h3 className="text-md font-medium text-gray-500 mb-2">Account Details</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <div className="text-sm text-gray-500">Account Name</div>
+                        <div className="font-medium">{account.name}</div>
+                      </div>
+                      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <div className="text-sm text-gray-500">Account ID</div>
+                        <div className="font-medium">{account.id}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-md font-medium text-gray-500 mb-2">Coming Soon</h3>
+                    <p className="text-sm text-gray-500 italic">
+                      Additional account details will be displayed here in the future.
+                    </p>
+                  </div>
+                </div>
+              </Tab>
+              <Tab key="users" title="Members" disabled>
+                <p>User permissions management will be available soon</p>
+              </Tab>
+              <Tab key="activity" title="Activity" disabled>
+                <p>Account activity will be available soon</p>
+              </Tab>
+            </Tabs>
+          </CardBody>
+        </Card>
+        
+        <Card className="shadow-sm h-min">
+          <CardHeader className="bg-gray-50 dark:bg-gray-800">
+            <h2 className="text-xl font-semibold">Quick Actions</h2>
+          </CardHeader>
+          <CardBody className="p-4">
+            <div className="flex flex-col gap-2">
+              <Button
+                as={Link}
+                href={`/accounts/${account.id}/edit`}
+                color="primary"
+                variant="flat"
+                fullWidth
+                className="justify-start"
+              >
+                Edit Account Details
+              </Button>
+              <Button
+                color="secondary"
+                variant="flat"
+                fullWidth
+                className="justify-start"
+                disabled
+              >
+                Manage Members (Coming Soon)
+              </Button>
+              <Button
+                color="secondary"
+                variant="flat"
+                fullWidth
+                className="justify-start"
+                disabled
+              >
+                Account Settings (Coming Soon)
+              </Button>
+            </div>
+          </CardBody>
+          <Divider />
+          <CardFooter className="flex justify-end">
+            <Link href="/accounts">
+              <Button variant="light">Back to accounts</Button>
+            </Link>
+          </CardFooter>
+        </Card>
       </div>
     </>
   );

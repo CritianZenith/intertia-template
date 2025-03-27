@@ -12,4 +12,7 @@ alwaysApply: false
 
 - If you need to reference the overall layout that wraps each page, [Layout.tsx](mdc:app/javascript/layouts/Layout.tsx)
 
+- When building forms and inputs, we may want to remember state using inertia `import { useRemember } from '@inertiajs/react'`
+
+
 
