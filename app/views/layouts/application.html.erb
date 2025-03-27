@@ -1,10 +1,10 @@
 <% theme = cookies[:theme] || 'light' %>
 <!DOCTYPE html>
-<html lang="en" class="text-zinc-950 antialiased lg:bg-gray-100 dark:bg-gray-900 dark:text-white dark:lg:bg-gray-900<%= theme == 'dark' ? ' dark' : '' %>">
+<html lang="en" class="<%= theme == 'dark' ? 'dark ' : '' %>text-zinc-950 antialiased lg:bg-gray-100 dark:bg-gray-900 dark:text-white dark:lg:bg-gray-900">
   <head>
     <title>Manager</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f9fafb" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
     <% if theme == 'dark' %>

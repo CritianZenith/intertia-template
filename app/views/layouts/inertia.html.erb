@@ -1,9 +1,9 @@
 <% theme = cookies[:theme] || 'light' %>
 <!DOCTYPE html>
-<html lang="en" class="text-zinc-950 antialiased lg:bg-zinc-100 dark:bg-zinc-900 dark:text-white dark:lg:bg-zinc-950<%= theme == 'dark' ? ' dark' : '' %>">
+<html lang="en" class="<%= theme == 'dark' ? 'dark' : '' %>">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
     <% if theme == 'dark' %>
       <meta name="theme-color" content="#111827">
     <% else %>
@@ -24,7 +24,7 @@
 
   </head>
 
-  <body>
+  <body class="text-zinc-950 antialiased bg-gray-100 dark:bg-gray-900 dark:text-white">
     <%= yield %>
   </body>
 </html>

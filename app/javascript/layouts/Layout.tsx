@@ -121,52 +121,9 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
     </div>
   );
 
-  // Mobile sidebar (Drawer)
-  const MobileSidebar = () => (
-    <Drawer
-      isOpen={isSidebarOpen}
-      onOpenChange={setIsSidebarOpen}
-      placement="left"
-    >
-      <DrawerContent>
-        <DrawerHeader className="flex justify-between items-center">
-          <span className="text-xl font-bold">Management App</span>
-        </DrawerHeader>
-        <DrawerBody>
-          <div className="flex flex-col space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                  pathname === item.href
-                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300"
-                    : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-                }`}
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                {item.name}
-              </Link>
-            ))}
-          </div>
-          <Divider className="my-4" />
-          <AccountsList heading="Your Accounts" />
-          <div className="mt-6 flex justify-center">
-            <DarkModeToggle />
-          </div>
-        </DrawerBody>
-        <DrawerFooter>
-          <div className="text-xs text-gray-500 dark:text-gray-400">
-            © {new Date().getFullYear()} Management App
-          </div>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
-      <div className="flex h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden">
+      <div className="flex h-screen overflow-hidden">
         {/* Desktop Navigation */}
         <NavDesktop 
           pathname={pathname}
@@ -192,22 +149,17 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
           }`}
         >
           {/* Mobile navbar */}
-          <Navbar shouldHideOnScroll className="lg:hidden bg-gray-100 dark:bg-gray-900 dark:text-white">
-            <NavbarContent>
-              <NavbarItem>
-                <Button
-                  isIconOnly
-                  variant="light"
-                  onClick={() => setIsSidebarOpen(true)}
-                >
-                  <Bars3Icon className="h-6 w-6" />
-                </Button>
-              </NavbarItem>
-            </NavbarContent>
-          </Navbar>
+          <Button
+            className="lg:hidden bg-gray-100 dark:bg-gray-900 dark:text-white fixed top-2 left-2"
+            isIconOnly
+            variant="light"
+            onPress={() => setIsSidebarOpen(true)}
+          >
+            <Bars3Icon className="h-6 w-6" />
+          </Button>
 
           {/* Main content */}
-          <main className="flex-1 overflow-auto dark:bg-gray-900 dark:text-gray-200 lg:pt-4">
+          <main className="flex-1 overflow-auto lg:pt-4">
             <div className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto`}>
               {children}
             </div>
