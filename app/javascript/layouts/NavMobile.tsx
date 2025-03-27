@@ -64,7 +64,9 @@ export function NavMobile({
     >
       <DrawerContent>
         <DrawerHeader className="flex justify-between items-center">
-          <span className="text-xl font-bold dark:text-white">Management App</span>
+          <span className="text-xl font-bold dark:text-white">
+            Management App
+          </span>
         </DrawerHeader>
         <DrawerBody>
           <div className="flex flex-col space-y-1">
@@ -98,4 +100,4 @@ export function NavMobile({
       </DrawerContent>
     </Drawer>
   );
-} 
+}

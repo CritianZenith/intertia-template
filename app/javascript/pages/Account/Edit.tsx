@@ -1,12 +1,7 @@
 import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
-import {
-  Button,
-  Divider,
-  Breadcrumbs,
-  BreadcrumbItem,
-} from "@heroui/react";
+import { Button, Divider, Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 import { Link } from "@inertiajs/react";
 
 interface EditProps {
@@ -41,18 +36,10 @@ export default function Edit({ account }: EditProps) {
       />
 
       <div className="flex justify-end gap-4 mt-6">
-        <Button 
-          as={Link} 
-          href={`/accounts/${account.id}`} 
-          variant="bordered"
-        >
+        <Button as={Link} href={`/accounts/${account.id}`} variant="bordered">
           Show this account
         </Button>
-        <Button 
-          as={Link} 
-          href="/accounts" 
-          variant="light"
-        >
+        <Button as={Link} href="/accounts" variant="light">
           Back to accounts
         </Button>
       </div>

@@ -1,31 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { usePage, router } from "@inertiajs/react";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Button,
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  Divider,
-  Switch,
-  HeroUIProvider,
-} from "@heroui/react";
-import { AccountsList } from "../components/AccountsList";
-import {
-  Bars3Icon,
-  HomeIcon,
-  BuildingOfficeIcon,
-  UserIcon,
-  CogIcon,
-  SunIcon,
-  MoonIcon,
-} from "@heroicons/react/24/outline";
+import { Button, HeroUIProvider } from "@heroui/react";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import { NavDesktop } from "./NavDesktop";
 import { NavMobile } from "./NavMobile";
 
@@ -34,7 +10,7 @@ const navigate = (href: string, options: { scroll?: boolean } = {}) => {
   router.push({
     url: href,
     preserveScroll: options.scroll === false ? false : true,
-    ...options
+    ...options,
   });
 };
 
@@ -78,7 +54,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
       // Update theme-color meta tag
       const themeColorMeta = document.querySelector('meta[name="theme-color"]');
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', '#f3f4f6');
+        themeColorMeta.setAttribute("content", "#f3f4f6");
       }
       setIsDarkMode(false);
     } else {
@@ -88,7 +64,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
       // Update theme-color meta tag
       const themeColorMeta = document.querySelector('meta[name="theme-color"]');
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', '#111827');
+        themeColorMeta.setAttribute("content", "#111827");
       }
       setIsDarkMode(true);
     }
@@ -100,44 +76,23 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
     setIsNavExpanded(newState);
   };
 
-  // Define navigation items
-  const navItems = [
-    { name: "Dashboard", href: "/", icon: HomeIcon },
-    { name: "Accounts", href: "/accounts", icon: BuildingOfficeIcon },
-    { name: "Profile", href: "/profile", icon: UserIcon },
-    { name: "Settings", href: "/settings", icon: CogIcon },
-  ];
-
-  // Dark mode toggle component
-  const DarkModeToggle = () => (
-    <div className="flex items-center space-x-2">
-      <SunIcon className="h-5 w-5 text-gray-500" />
-      <Switch
-        isSelected={isDarkMode}
-        onValueChange={toggleDarkMode}
-        size="sm"
-      />
-      <MoonIcon className="h-5 w-5 text-gray-500" />
-    </div>
-  );
-
   // Fix for iOS Safari height issues - use CSS variables for viewport height
   useEffect(() => {
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
-    
+
     setVh();
-    window.addEventListener('resize', setVh);
-    return () => window.removeEventListener('resize', setVh);
+    window.addEventListener("resize", setVh);
+    return () => window.removeEventListener("resize", setVh);
   }, []);
 
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
       <div className="flex h-[100vh] h-[calc(var(--vh,1vh)*100)] overflow-hidden">
         {/* Desktop Navigation */}
-        <NavDesktop 
+        <NavDesktop
           pathname={pathname}
           isDarkMode={isDarkMode}
           toggleDarkMode={toggleDarkMode}
@@ -155,7 +110,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
         />
 
         {/* Content container that adjusts based on nav state */}
-        <div 
+        <div
           className={`flex flex-col flex-1 w-full max-w-full transition-all duration-300 ease-in-out ${
             isNavExpanded ? "lg:ml-64" : "lg:ml-0"
           }`}
@@ -173,7 +128,9 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
 
           {/* Main content */}
           <main className="flex-1 overflow-y-auto overflow-x-hidden lg:pt-4 pb-safe">
-            <div className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto pb-6`}>
+            <div
+              className={`w-full ${!isNavExpanded ? "lg:pl-16" : ""} px-4 max-w-full mx-auto pb-6`}
+            >
               {children}
             </div>
           </main>

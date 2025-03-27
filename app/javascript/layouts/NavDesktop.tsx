@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-import {
-  Divider,
-  Switch,
-} from "@heroui/react";
+import { Divider, Switch } from "@heroui/react";
 import { AccountsList } from "../components/AccountsList";
 import {
   HomeIcon,
@@ -60,10 +57,13 @@ export function NavDesktop({
         }`}
       >
         {/* Inner content with opacity transition to avoid animating text */}
-        <div className={`w-64 ${isExpanded ? "opacity-100" : "opacity-0"}`} style={{ 
-          transition: "opacity 0.15s ease-in-out",
-          transitionDelay: isExpanded ? "0.15s" : "0s" 
-        }}>
+        <div
+          className={`w-64 ${isExpanded ? "opacity-100" : "opacity-0"}`}
+          style={{
+            transition: "opacity 0.15s ease-in-out",
+            transitionDelay: isExpanded ? "0.15s" : "0s",
+          }}
+        >
           <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
             <span className="text-xl font-bold dark:text-white">
               Management App
@@ -114,4 +114,4 @@ export function NavDesktop({
       )}
     </>
   );
-} 
+}

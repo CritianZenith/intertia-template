@@ -15,6 +15,6 @@ export interface AccountUserType {
   id: number;
   userId: number;
   accountId: number;
-  role: 'admin' | 'member' | 'viewer';
+  role: "admin" | "member" | "viewer";
   // permissions?: string[];
 }

@@ -19,11 +19,7 @@ Use HeroUI's `as` prop to render the Button as an Inertia Link component:
 
 ```tsx
 // ✅ Correctly uses Inertia navigation
-<Button 
-  as={Link} 
-  href="/accounts" 
-  variant="light"
->
+<Button as={Link} href="/accounts" variant="light">
   Back to accounts
 </Button>
 ```
@@ -34,11 +30,7 @@ Use HeroUI's `as` prop to render the Button as an Inertia Link component:
 
 ```tsx
 // Navigation buttons
-<Button 
-  as={Link} 
-  href="/accounts" 
-  variant="light"
->
+<Button as={Link} href="/accounts" variant="light">
   Back to accounts
 </Button>
 ```
@@ -71,7 +63,7 @@ import { router } from "@inertiajs/react";
   variant="light"
 >
   Delete
-</Button>
+</Button>;
 ```
 
 ### Forms
@@ -82,7 +74,7 @@ For form submissions, use Inertia's form helpers:
 import { useForm } from "@inertiajs/react";
 
 const form = useForm({
-  name: account.name
+  name: account.name,
 });
 
 <Form
@@ -91,11 +83,11 @@ const form = useForm({
     form.patch(`/accounts/${account.id}`);
   }}
   submitText="Update Account"
-/>
+/>;
 ```
 
 ## Important Notes
 
 1. Always use `onPress` instead of `onClick` for HeroUI Button components
 2. Import the Link component from `@inertiajs/react`, not from `@heroui/react`
-3. For programmatic navigation, use `router.visit()` from Inertia.js 
+3. For programmatic navigation, use `router.visit()` from Inertia.js

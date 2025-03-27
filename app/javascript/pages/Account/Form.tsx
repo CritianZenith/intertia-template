@@ -40,14 +40,16 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
           </p>
         </CardHeader>
         <Divider />
-        
+
         <Tabs aria-label="Account sections" className="mx-4 mt-2">
           <Tab key="details" title="General Information">
             <CardBody className="px-4 py-6">
               <div className="space-y-8">
                 {/* Account Information Section */}
                 <div>
-                  <h3 className="text-lg font-semibold mb-4">Basic Information</h3>
+                  <h3 className="text-lg font-semibold mb-4">
+                    Basic Information
+                  </h3>
                   <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
                     <div className="space-y-2">
                       <Input
@@ -63,7 +65,7 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
                         description="This is the primary name associated with your account"
                       />
                     </div>
-                    
+
                     {/* Space for future fields */}
                     <div className="space-y-2 opacity-50">
                       <Input
@@ -77,10 +79,12 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Placeholder for future sections */}
                 <div className="opacity-50">
-                  <h3 className="text-lg font-semibold mb-4">Additional Settings</h3>
+                  <h3 className="text-lg font-semibold mb-4">
+                    Additional Settings
+                  </h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 italic">
                     More account settings will be available in the future
                   </p>
@@ -94,7 +98,7 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
             </CardBody>
           </Tab>
         </Tabs>
-        
+
         <Divider />
         <CardFooter className="flex justify-end gap-4 bg-gray-50 dark:bg-gray-800">
           <Button

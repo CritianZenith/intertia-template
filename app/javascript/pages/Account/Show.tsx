@@ -49,8 +49,8 @@ export default function Show({ account, flash }: ShowProps) {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <h1 className="text-3xl font-bold">{account.name}</h1>
         <div className="flex flex-wrap gap-2">
-          <Button 
-            as={Link} 
+          <Button
+            as={Link}
             href={`/accounts/${account.id}/edit`}
             color="primary"
           >
@@ -79,15 +79,19 @@ export default function Show({ account, flash }: ShowProps) {
             <div className="mb-8">
               <Account account={account} />
             </div>
-            
+
             <Tabs aria-label="Account sections">
               <Tab key="details" title="Details">
                 <div className="py-4">
                   <div className="mb-6">
-                    <h3 className="text-md font-medium text-gray-500 mb-2">Account Details</h3>
+                    <h3 className="text-md font-medium text-gray-500 mb-2">
+                      Account Details
+                    </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <div className="text-sm text-gray-500">Account Name</div>
+                        <div className="text-sm text-gray-500">
+                          Account Name
+                        </div>
                         <div className="font-medium">{account.name}</div>
                       </div>
                       <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
@@ -96,11 +100,14 @@ export default function Show({ account, flash }: ShowProps) {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div>
-                    <h3 className="text-md font-medium text-gray-500 mb-2">Coming Soon</h3>
+                    <h3 className="text-md font-medium text-gray-500 mb-2">
+                      Coming Soon
+                    </h3>
                     <p className="text-sm text-gray-500 italic">
-                      Additional account details will be displayed here in the future.
+                      Additional account details will be displayed here in the
+                      future.
                     </p>
                   </div>
                 </div>
@@ -114,7 +121,7 @@ export default function Show({ account, flash }: ShowProps) {
             </Tabs>
           </CardBody>
         </Card>
-        
+
         <Card className="shadow-sm h-min">
           <CardHeader className="bg-gray-50 dark:bg-gray-800">
             <h2 className="text-xl font-semibold">Quick Actions</h2>
@@ -153,11 +160,7 @@ export default function Show({ account, flash }: ShowProps) {
           </CardBody>
           <Divider />
           <CardFooter className="flex justify-end">
-            <Button 
-              as={Link} 
-              href="/accounts" 
-              variant="light"
-            >
+            <Button as={Link} href="/accounts" variant="light">
               Back to accounts
             </Button>
           </CardFooter>

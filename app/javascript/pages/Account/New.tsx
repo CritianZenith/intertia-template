@@ -1,12 +1,7 @@
 import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
-import {
-  Button,
-  Divider,
-  Breadcrumbs,
-  BreadcrumbItem,
-} from "@heroui/react";
+import { Button, Divider, Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 import { Link } from "@inertiajs/react";
 interface NewProps {
   account: AccountType;
@@ -37,11 +32,7 @@ export default function New({ account }: NewProps) {
       />
 
       <div className="flex justify-end mt-6">
-        <Button 
-          as={Link} 
-          href="/accounts" 
-          variant="light"
-        >
+        <Button as={Link} href="/accounts" variant="light">
           Back to accounts
         </Button>
       </div>
