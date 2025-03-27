@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@apollo/client";
 import { GET_ACCOUNTS } from "~/lib/queries";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { Link } from "@heroui/react";
+import { Link } from "@inertiajs/react";
 import { AccountsData } from "./types";
 
 interface AccountsListProps {

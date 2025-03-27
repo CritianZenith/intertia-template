@@ -3,7 +3,6 @@ import { useState } from "react";
 import Account from "./Account";
 import { AccountType } from "./types";
 import {
-  Link,
   Button,
   Breadcrumbs,
   BreadcrumbItem,
@@ -16,6 +15,7 @@ import {
   Tabs,
   Tab,
 } from "@heroui/react";
+import { Link, router } from "@inertiajs/react";
 
 interface ShowProps {
   account: AccountType;
@@ -40,23 +40,30 @@ export default function Show({ account, flash }: ShowProps) {
       )}
 
       <Breadcrumbs className="mb-6">
-        <BreadcrumbItem href="/accounts">Accounts</BreadcrumbItem>
+        <BreadcrumbItem>
+          <Link href="/accounts">Accounts</Link>
+        </BreadcrumbItem>
         <BreadcrumbItem>{account.name}</BreadcrumbItem>
       </Breadcrumbs>
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <h1 className="text-3xl font-bold">{account.name}</h1>
         <div className="flex flex-wrap gap-2">
-          <Link href={`/accounts/${account.id}/edit`}>
-            <Button color="primary">Edit Account</Button>
-          </Link>
+          <Button 
+            as={Link} 
+            href={`/accounts/${account.id}/edit`}
+            color="primary"
+          >
+            Edit Account
+          </Button>
           <Button
-            as="a"
-            href={`/accounts/${account.id}`}
+            onPress={() => {
+              if (confirm("Are you sure you want to delete this account?")) {
+                router.delete(`/accounts/${account.id}`);
+              }
+            }}
             color="danger"
             variant="light"
-            data-method="delete"
-            data-confirm="Are you sure you want to delete this account?"
           >
             Delete
           </Button>
@@ -146,9 +153,13 @@ export default function Show({ account, flash }: ShowProps) {
           </CardBody>
           <Divider />
           <CardFooter className="flex justify-end">
-            <Link href="/accounts">
-              <Button variant="light">Back to accounts</Button>
-            </Link>
+            <Button 
+              as={Link} 
+              href="/accounts" 
+              variant="light"
+            >
+              Back to accounts
+            </Button>
           </CardFooter>
         </Card>
       </div>

@@ -1,9 +1,8 @@
 import React from "react";
+import { Link } from "@inertiajs/react";
 import {
-  Link,
   Divider,
   Switch,
-  Tooltip,
 } from "@heroui/react";
 import { AccountsList } from "../components/AccountsList";
 import {

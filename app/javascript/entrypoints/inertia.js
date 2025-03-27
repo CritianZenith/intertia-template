@@ -20,7 +20,7 @@ const useHref = (href) => href;
 createInertiaApp({
   progress: {
     // The delay after which the progress bar will appear, in milliseconds...
-    delay: 100,
+    delay: 250,
 
     // The color of the progress bar...
     color: '#29d',

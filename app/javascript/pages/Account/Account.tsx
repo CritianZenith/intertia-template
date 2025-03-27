@@ -1,5 +1,5 @@
 import { AccountType } from "./types";
-import { User, Badge, Card, Chip } from "@heroui/react";
+import { Chip } from "@heroui/react";
 
 import { ApplicationLayout } from "../../layouts/Layout";
 

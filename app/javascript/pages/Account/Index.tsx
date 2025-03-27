@@ -3,7 +3,6 @@ import { useState } from "react";
 import Account from "./Account";
 import { AccountType } from "./types";
 import {
-  Link,
   Button,
   Card,
   CardBody,
@@ -16,7 +15,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@heroui/react";
-
+import { Link } from "@inertiajs/react";
 import { ApplicationLayout } from "../../layouts/Layout";
 
 interface IndexProps {
@@ -48,11 +47,14 @@ function Index({ accounts, flash }: IndexProps) {
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <h1 className="text-3xl font-bold">Accounts</h1>
-        <Link href="/accounts/new">
-          <Button color="primary" size="lg">
-            Create New Account
-          </Button>
-        </Link>
+        <Button 
+          as={Link} 
+          href="/accounts/new" 
+          color="primary" 
+          size="lg"
+        >
+          Create New Account
+        </Button>
       </div>
 
       <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
@@ -94,16 +96,22 @@ function Index({ accounts, flash }: IndexProps) {
                   ID: {account.id}
                 </div>
                 <div className="flex gap-2">
-                  <Link href={`/accounts/${account.id}/edit`}>
-                    <Button size="sm" variant="flat">
-                      Edit
-                    </Button>
-                  </Link>
-                  <Link href={`/accounts/${account.id}`}>
-                    <Button size="sm" color="primary">
-                      View Details
-                    </Button>
-                  </Link>
+                  <Button 
+                    as={Link} 
+                    href={`/accounts/${account.id}/edit`} 
+                    size="sm" 
+                    variant="flat"
+                  >
+                    Edit
+                  </Button>
+                  <Button 
+                    as={Link} 
+                    href={`/accounts/${account.id}`} 
+                    size="sm" 
+                    color="primary"
+                  >
+                    View Details
+                  </Button>
                 </div>
               </CardFooter>
             </Card>
@@ -121,15 +129,17 @@ function Index({ accounts, flash }: IndexProps) {
                 {searchQuery ? `No accounts match "${searchQuery}"` : 'Create your first account to get started.'}
               </p>
               {searchQuery ? (
-                <Button color="primary" onClick={() => setSearchQuery("")}>
+                <Button color="primary" onPress={() => setSearchQuery("")}>
                   Clear Search
                 </Button>
               ) : (
-                <Link href="/accounts/new">
-                  <Button color="primary">
-                    Create Account
-                  </Button>
-                </Link>
+                <Button 
+                  as={Link} 
+                  href="/accounts/new" 
+                  color="primary"
+                >
+                  Create Account
+                </Button>
               )}
             </div>
           </CardBody>

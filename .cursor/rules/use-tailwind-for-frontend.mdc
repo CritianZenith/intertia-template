@@ -14,5 +14,9 @@ alwaysApply: false
 
 - When building forms and inputs, we may want to remember state using inertia `import { useRemember } from '@inertiajs/react'`
 
+- When creating HeroUI <Button /> components, be sure to use `onPress` instead of `onClick`, as they have deprecated `onClick` in favor of using `onPress`
+
+- [NAVIGATION.md](mdc:app/javascript/docs/NAVIGATION.md) - Best practices for SPA navigation
+
 
 

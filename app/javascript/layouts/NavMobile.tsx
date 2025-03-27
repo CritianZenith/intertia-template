@@ -5,10 +5,10 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Link,
   Divider,
   Switch,
 } from "@heroui/react";
+import { Link } from "@inertiajs/react";
 import { AccountsList } from "../components/AccountsList";
 import {
   HomeIcon,

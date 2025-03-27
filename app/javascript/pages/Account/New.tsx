@@ -2,13 +2,12 @@ import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
 import {
-  Link,
   Button,
   Divider,
   Breadcrumbs,
   BreadcrumbItem,
 } from "@heroui/react";
-
+import { Link } from "@inertiajs/react";
 interface NewProps {
   account: AccountType;
 }
@@ -19,7 +18,9 @@ export default function New({ account }: NewProps) {
       <Head title="New Account" />
 
       <Breadcrumbs className="mb-6">
-        <BreadcrumbItem href="/accounts">Accounts</BreadcrumbItem>
+        <BreadcrumbItem>
+          <Link href="/accounts">Accounts</Link>
+        </BreadcrumbItem>
         <BreadcrumbItem>New</BreadcrumbItem>
       </Breadcrumbs>
 
@@ -36,9 +37,13 @@ export default function New({ account }: NewProps) {
       />
 
       <div className="flex justify-end mt-6">
-        <Link href="/accounts">
-          <Button variant="light">Back to accounts</Button>
-        </Link>
+        <Button 
+          as={Link} 
+          href="/accounts" 
+          variant="light"
+        >
+          Back to accounts
+        </Button>
       </div>
     </>
   );

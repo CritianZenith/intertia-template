@@ -2,12 +2,12 @@ import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
 import {
-  Link,
   Button,
   Divider,
   Breadcrumbs,
   BreadcrumbItem,
 } from "@heroui/react";
+import { Link } from "@inertiajs/react";
 
 interface EditProps {
   account: AccountType;
@@ -19,9 +19,11 @@ export default function Edit({ account }: EditProps) {
       <Head title="Editing Account" />
 
       <Breadcrumbs className="mb-6">
-        <BreadcrumbItem href="/accounts">Accounts</BreadcrumbItem>
-        <BreadcrumbItem href={`/accounts/${account.id}`}>
-          {account.name}
+        <BreadcrumbItem>
+          <Link href="/accounts">Accounts</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <Link href={`/accounts/${account.id}`}>{account.name}</Link>
         </BreadcrumbItem>
         <BreadcrumbItem>Edit</BreadcrumbItem>
       </Breadcrumbs>
@@ -39,12 +41,20 @@ export default function Edit({ account }: EditProps) {
       />
 
       <div className="flex justify-end gap-4 mt-6">
-        <Link href={`/accounts/${account.id}`}>
-          <Button variant="bordered">Show this account</Button>
-        </Link>
-        <Link href="/accounts">
-          <Button variant="light">Back to accounts</Button>
-        </Link>
+        <Button 
+          as={Link} 
+          href={`/accounts/${account.id}`} 
+          variant="bordered"
+        >
+          Show this account
+        </Button>
+        <Button 
+          as={Link} 
+          href="/accounts" 
+          variant="light"
+        >
+          Back to accounts
+        </Button>
       </div>
     </>
   );
