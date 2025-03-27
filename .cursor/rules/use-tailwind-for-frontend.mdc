@@ -4,8 +4,12 @@ globs: *.tsx,*.jsx
 alwaysApply: false
 ---
 
-# Use React, Apollo and Tailwind
+# Use React, Apollo and Tailwind/HeroUI
 
-[ui-components.md](mdc:app/javascript/components/ui/ui-components.md)
+- For our UI components, we are using HeroUI, which we should use for all react components where possible (avoid implementing our own components unless necessary)
+
+- Here our tailwind configuration: [tailwind.config.js](mdc:config/tailwind.config.js)
+
+- If you need to reference the overall layout that wraps each page, [Layout.tsx](mdc:app/javascript/layouts/Layout.tsx)
 
 
