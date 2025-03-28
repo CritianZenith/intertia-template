@@ -4,7 +4,8 @@
   "scripts": {
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix app/javascript",
     "format": "prettier --write app/javascript",
-    "format:check": "prettier --check app/javascript"
+    "format:check": "prettier --check app/javascript",
+    "format:fix": "prettier --write app/javascript"
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
