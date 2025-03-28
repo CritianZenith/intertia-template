@@ -59,7 +59,9 @@ export default function Edit({ token, flash }: EditProps) {
                 placeholder="Repeat new password"
                 maxLength={72}
                 value={form.data.password_confirmation}
-                onChange={(e) => form.setData("password_confirmation", e.target.value)}
+                onChange={(e) =>
+                  form.setData("password_confirmation", e.target.value)
+                }
                 className="w-full"
               />
             </div>
@@ -82,4 +84,4 @@ export default function Edit({ token, flash }: EditProps) {
 }
 
 // Set layout to null to prevent the default ApplicationLayout from being applied
-Edit.layout = null; 
+Edit.layout = null;

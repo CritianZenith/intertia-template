@@ -48,7 +48,6 @@ export default function New({ flash }: NewProps) {
             </div>
 
             <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-
               <div className="inline">
                 <Button
                   type="submit"
@@ -60,9 +59,12 @@ export default function New({ flash }: NewProps) {
                 </Button>
               </div>
               <div className="mt-4 text-sm text-gray-500 sm:mt-0">
-                  <Link href="/session/new" className="underline hover:no-underline">
-                    Back
-                  </Link>
+                <Link
+                  href="/session/new"
+                  className="underline hover:no-underline"
+                >
+                  Back
+                </Link>
               </div>
             </div>
           </form>
@@ -73,4 +75,4 @@ export default function New({ flash }: NewProps) {
 }
 
 // Set layout to null to prevent the default ApplicationLayout from being applied
-New.layout = null; 
+New.layout = null;

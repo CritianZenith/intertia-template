@@ -98,8 +98,8 @@ export function NavDesktop({
             <AccountsList heading="Your Accounts" />
           </div>
           <div className="mt-4 flex justify-center">
-              <DarkModeToggle />
-            </div>
+            <DarkModeToggle />
+          </div>
         </div>
       </div>
 

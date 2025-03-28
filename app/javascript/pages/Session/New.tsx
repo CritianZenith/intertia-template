@@ -24,7 +24,10 @@ export default function New({ flash }: NewProps) {
     <>
       <Head title="Sign in" />
 
-      <div id="container" className="max-w-md min-h-screen flex flex-col justify-center items-center mx-auto rounded-md">
+      <div
+        id="container"
+        className="max-w-md min-h-screen flex flex-col justify-center items-center mx-auto rounded-md"
+      >
         <div className="mx-auto md:w-2/3 w-full">
           {flash.alert && (
             <Alert color="danger" className="mb-5">
@@ -82,7 +85,10 @@ export default function New({ flash }: NewProps) {
               </div>
 
               <div className="mt-4 text-sm text-gray-500 sm:mt-0">
-                <Link href="/passwords/new" className="underline hover:no-underline">
+                <Link
+                  href="/passwords/new"
+                  className="underline hover:no-underline"
+                >
                   Forgot password?
                 </Link>
               </div>
@@ -95,4 +101,4 @@ export default function New({ flash }: NewProps) {
 }
 
 // Set layout to null to prevent the default ApplicationLayout from being applied
-New.layout = null; 
+New.layout = null;
