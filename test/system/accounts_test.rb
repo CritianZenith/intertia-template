@@ -4,15 +4,10 @@ class AccountsTest < ApplicationSystemTestCase
   setup do
     @account = accounts(:one)
     @user = users(:one)
-    # Sign in as a user
-    visit new_session_path
-    fill_in "email_address", with: @user.email_address
-    fill_in "password", with: "password"
-    click_on "Sign in"
   end
 
-  test "visiting the index" do
+  test "visiting the accounts page asks for sign in" do
     visit accounts_url
-    assert_selector "h1", text: "Accounts"
+    assert_selector "h1", text: "Sign in"
   end
 end

@@ -32,8 +32,11 @@ createInertiaApp({
       console.error(`Missing Inertia page component: '${name}.jsx'`);
     }
 
-    page.default.layout ||= (page) =>
-      createElement(ApplicationLayout, null, page);
+    // Only set the default layout if the page's layout is undefined
+    if (page.default.layout === undefined) {
+      page.default.layout = (page) =>
+        createElement(ApplicationLayout, null, page);
+    }
 
     return page;
   },
