@@ -1,8 +1,11 @@
 class PasswordsController < ApplicationController
   allow_unauthenticated_access
   before_action :set_user_by_token, only: %i[ edit update ]
+  layout "inertia"
+  inertia_share flash: -> { flash.to_hash }
 
   def new
+    render inertia: "Password/New"
   end
 
   def create
@@ -14,6 +17,9 @@ class PasswordsController < ApplicationController
   end
 
   def edit
+    render inertia: "Password/Edit", props: {
+      token: params[:token]
+    }
   end
 
   def update

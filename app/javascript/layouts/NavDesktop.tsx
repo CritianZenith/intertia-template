@@ -58,7 +58,7 @@ export function NavDesktop({
       >
         {/* Inner content with opacity transition to avoid animating text */}
         <div
-          className={`w-64 ${isExpanded ? "opacity-100" : "opacity-0"}`}
+          className={`flex flex-col max-h-screen w-64 ${isExpanded ? "opacity-100" : "opacity-0"}`}
           style={{
             transition: "opacity 0.15s ease-in-out",
             transitionDelay: isExpanded ? "0.15s" : "0s",
@@ -96,10 +96,10 @@ export function NavDesktop({
 
             <Divider className="my-4" />
             <AccountsList heading="Your Accounts" />
-            <div className="mt-4 flex justify-center">
+          </div>
+          <div className="mt-4 flex justify-center">
               <DarkModeToggle />
             </div>
-          </div>
         </div>
       </div>
 
