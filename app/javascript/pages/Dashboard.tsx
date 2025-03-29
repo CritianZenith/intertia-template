@@ -3,11 +3,7 @@ import { Card, CardBody, CardHeader, CardFooter, Divider } from "@heroui/react";
 import { Link } from "@inertiajs/react";
 import { ApplicationLayout } from "../layouts/Layout";
 
-interface DashboardProps {
-  flash: { notice?: string };
-}
-
-export default function Dashboard({ flash }: DashboardProps) {
+export default function Dashboard() {
   return (
     <>
       <Head title="Dashboard" />
@@ -83,4 +79,4 @@ export default function Dashboard({ flash }: DashboardProps) {
 
 Dashboard.layout = (page: React.ReactNode) => (
   <ApplicationLayout>{page}</ApplicationLayout>
-); 
+);
