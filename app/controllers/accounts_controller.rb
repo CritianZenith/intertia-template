@@ -78,7 +78,7 @@ class AccountsController < ApplicationController
 
     def serialize_account(account)
       account.as_json(only: [
-        :id, :name
+        :id, :name, :users_count
       ])
     end
 end

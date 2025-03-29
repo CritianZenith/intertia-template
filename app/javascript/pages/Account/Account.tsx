@@ -31,8 +31,6 @@ function Account({ account }: AccountProps) {
             </Chip>
           </div>
           <div className="text-sm text-gray-500 flex items-center gap-2">
-            <span>Account ID: {account.id}</span>
-            <span className="text-gray-300">•</span>
             <span>Created: Recently</span>
           </div>
         </div>

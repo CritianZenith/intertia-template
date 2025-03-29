@@ -44,7 +44,7 @@ export default function Dashboard() {
             <Divider />
             <CardFooter>
               <Link
-                href="/account"
+                href="/profile"
                 className="text-primary hover:text-primary-dark"
               >
                 Edit Profile →

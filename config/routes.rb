@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resource :session
   get "/session/destroy", to: "sessions#destroy"
   resources :passwords, param: :token
+  resource :profile, only: [ :show, :edit, :update ]
 
   # Inertia Example
   get "inertia-example", to: "inertia_example#index"

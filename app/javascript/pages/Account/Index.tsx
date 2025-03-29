@@ -89,8 +89,7 @@ function Index({ accounts, flash }: IndexProps) {
                 <Account account={account} />
               </CardBody>
               <Divider />
-              <CardFooter className="flex justify-between items-center px-6 py-4">
-                <div className="text-sm text-gray-500">ID: {account.id}</div>
+              <CardFooter className="flex justify-end items-center px-6 py-4">
                 <div className="flex gap-2">
                   <Button
                     as={Link}
