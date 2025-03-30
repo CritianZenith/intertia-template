@@ -16,8 +16,11 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1
   def show
+    @account_users = @account.account_users.includes(:user)
+
     render inertia: "Account/Show", props: {
-      account: serialize_account(@account)
+      account: serialize_account(@account),
+      account_users: serialize_account_users(@account_users)
     }
   end
 
@@ -82,5 +85,13 @@ class AccountsController < ApplicationController
       json[:users_count] = account.users_count if account.id
 
       json
+    end
+
+    def serialize_account_users(account_users)
+      account_users.map do |account_user|
+        account_user.as_json(only: [ :id, :role ]).merge(
+          user: account_user.user.as_json(only: [ :id, :email_address, :name ])
+        )
+      end
     end
 end

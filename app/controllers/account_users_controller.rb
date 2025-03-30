@@ -2,18 +2,9 @@ class AccountUsersController < ApplicationController
   layout "inertia"
   before_action :set_account
   before_action :authorize_account_admin
-  before_action :set_account_user, only: [ :destroy ]
+  before_action :set_account_user, only: [ :destroy, :update ]
 
   inertia_share flash: -> { flash.to_hash }
-
-  def index
-    @account_users = @account.account_users.includes(:user)
-
-    render inertia: "Account/Users/Index", props: {
-      account: serialize_account(@account),
-      account_users: serialize_account_users(@account_users)
-    }
-  end
 
   def new
     render inertia: "Account/Users/New", props: {
@@ -36,14 +27,14 @@ class AccountUsersController < ApplicationController
     end
 
     if @account.users.include?(user)
-      redirect_to account_users_path(@account), notice: "User is already a member of this account."
+      redirect_to account_path(@account, tab: "users"), notice: "User is already a member of this account."
       return
     end
 
     @account_user = @account.account_users.build(user: user, role: account_user_params[:role])
 
     if @account_user.save
-      redirect_to account_users_path(@account), notice: "User was successfully added to the account."
+      redirect_to account_path(@account, tab: "users"), notice: "User was successfully added to the account."
     else
       redirect_to new_account_user_path(@account), inertia: { errors: @account_user.errors }
     end
@@ -51,12 +42,27 @@ class AccountUsersController < ApplicationController
 
   def destroy
     if @account.account_users.where(role: "admin").count <= 1 && @account_user.role == "admin"
-      redirect_to account_users_path(@account), alert: "Cannot remove the last admin from the account."
+      redirect_to account_path(@account, tab: "users"), alert: "Cannot remove the last admin from the account."
       return
     end
 
     @account_user.destroy!
-    redirect_to account_users_path(@account), notice: "User was successfully removed from the account."
+    redirect_to account_path(@account, tab: "users"), notice: "User was successfully removed from the account."
+  end
+
+  def update
+    if @account.account_users.where(role: "admin").count <= 1 &&
+       @account_user.role == "admin" &&
+       account_user_params[:role] != "admin"
+      redirect_to account_path(@account, tab: "users"), alert: "Cannot change the role of the last admin."
+      return
+    end
+
+    if @account_user.update(account_user_params)
+      redirect_to account_path(@account, tab: "users"), notice: "User role was successfully updated."
+    else
+      redirect_to account_path(@account, tab: "users"), inertia: { errors: @account_user.errors }
+    end
   end
 
   private

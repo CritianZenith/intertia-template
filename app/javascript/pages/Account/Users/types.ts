@@ -1,5 +1,3 @@
-import { AccountType } from "../types";
-
 export interface UserType {
   id: number;
   email_address: string;

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # Main Web App
   resources :accounts do
-    resources :users, only: [ :index, :new, :create, :destroy ], controller: "account_users"
+    resources :users, only: [ :new, :create, :destroy, :update ], controller: "account_users"
   end
 
   # Authentication
