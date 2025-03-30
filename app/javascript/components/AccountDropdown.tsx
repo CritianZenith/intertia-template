@@ -11,7 +11,6 @@ import {
 import { PlusIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Link, router } from "@inertiajs/react";
 import { Account, AccountsData, CurrentAccountData } from "./types";
-import { useEffect } from "react";
 
 interface AccountDropdownProps {
   className?: string;
