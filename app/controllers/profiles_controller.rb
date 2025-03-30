@@ -1,6 +1,5 @@
 class ProfilesController < ApplicationController
   layout "inertia"
-  before_action :authenticate_user
 
   inertia_share flash: -> { flash.to_hash }
 
@@ -25,10 +24,6 @@ class ProfilesController < ApplicationController
   end
 
   private
-
-  def authenticate_user
-    redirect_to new_session_path unless Current.user
-  end
 
   def user_params
     params.require(:user).permit(:name, :bio)

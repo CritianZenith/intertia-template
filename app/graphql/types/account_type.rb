@@ -2,11 +2,11 @@
 
 module Types
   class AccountType < Types::BaseObject
+    description "An account in the application"
+
     def self.authorized?(object, context)
       object.users.include?(context[:current_user])
     end
-
-    description "An account in the application"
 
     implements GraphQL::Types::Relay::Node
 

@@ -13,7 +13,9 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: Current.user
+      current_user: Current.user,
+      current_account: Current.account,
+      current_account_user: Current.account_user
     }
     result = ManagerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
