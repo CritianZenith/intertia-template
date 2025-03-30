@@ -5,6 +5,7 @@ gem "rails", "~> 8.0.2"
 
 gem "bcrypt", "~> 3.1"
 gem "bootsnap", require: false
+gem "faker"
 gem "image_processing"
 gem "inertia_rails"
 gem "graphql"

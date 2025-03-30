@@ -112,8 +112,26 @@ export default function Show({ account, flash }: ShowProps) {
                   </div>
                 </div>
               </Tab>
-              <Tab key="users" title="Members" disabled>
-                <p>User permissions management will be available soon</p>
+              <Tab key="users" title="Members">
+                <div className="py-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-md font-medium text-gray-500">
+                      Account Members
+                    </h3>
+                    <Button
+                      as={Link}
+                      href={`/accounts/${account.id}/users`}
+                      color="primary"
+                      size="sm"
+                    >
+                      Manage Members
+                    </Button>
+                  </div>
+                  <p className="text-sm text-gray-500">
+                    This account has {account.users_count} members.
+                    Visit the members page to add or remove users.
+                  </p>
+                </div>
               </Tab>
               <Tab key="activity" title="Activity" disabled>
                 <p>Account activity will be available soon</p>
@@ -139,13 +157,14 @@ export default function Show({ account, flash }: ShowProps) {
                 Edit Account Details
               </Button>
               <Button
+                as={Link}
+                href={`/accounts/${account.id}/users`}
                 color="secondary"
                 variant="flat"
                 fullWidth
                 className="justify-start"
-                disabled
               >
-                Manage Members (Coming Soon)
+                Manage Members
               </Button>
               <Button
                 color="secondary"

@@ -65,10 +65,9 @@ class AccountsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    # We need to find the account by the global id, but only allow the current user to access their own accounts
     def set_account
-      @account = Account.find_by(id: params[:id])
-      @account ||= GlobalID::Locator.locate(params[:id], expected_type: Account)
-      raise ActiveRecord::RecordNotFound, "Couldn't find Account" if @account.nil?
+      @account = Current.user.accounts.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
@@ -77,8 +76,11 @@ class AccountsController < ApplicationController
     end
 
     def serialize_account(account)
-      account.as_json(only: [
-        :id, :name, :users_count
-      ])
+      json = {}
+      json[:id] = account.id if account.id
+      json[:name] = account.name
+      json[:users_count] = account.users_count if account.id
+
+      json
     end
 end

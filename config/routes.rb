@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
 
   # Main Web App
-  resources :accounts
+  resources :accounts do
+    resources :users, only: [ :index, :new, :create, :destroy ], controller: "account_users"
+  end
 
   # Authentication
   resource :session
