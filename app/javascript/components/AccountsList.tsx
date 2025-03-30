@@ -24,7 +24,7 @@ export function AccountsList({ heading = "Your Accounts" }: AccountsListProps) {
         {accounts.map((account) => (
           <Link
             key={account.id}
-            href={`/accounts/${account.id}`}
+            href={`/sessions/select_account/${account.id}`}
             className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
           >
             <div className="flex-shrink-0 w-8 h-8 mr-3 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300">

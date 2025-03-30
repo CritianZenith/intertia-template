@@ -12,6 +12,11 @@ module Types
       context[:current_user]&.accounts
     end
 
+    field :current_account, Types::AccountType, null: true, description: "Returns the currently selected account"
+    def current_account
+      context[:current_account]
+    end
+
     field :me, Types::UserType, null: true, description: "Returns the currently logged in user"
     def me
       context[:current_user]

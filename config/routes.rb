@@ -7,12 +7,17 @@ Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
 
   # Main Web App
-  resources :accounts
+  resources :accounts do
+    resources :users, only: [ :new, :create, :destroy, :update ], controller: "account_users"
+  end
 
   # Authentication
-  resource :session
+  resource :session do
+    get "select_account/:account_id", to: "sessions#select_account"
+  end
   get "/session/destroy", to: "sessions#destroy"
   resources :passwords, param: :token
+  resource :profile, only: [ :show, :edit, :update ]
 
   # Inertia Example
   get "inertia-example", to: "inertia_example#index"

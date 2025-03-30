@@ -9,7 +9,7 @@ import {
   Switch,
 } from "@heroui/react";
 import { Link } from "@inertiajs/react";
-import { AccountsList } from "../components/AccountsList";
+import { AccountDropdown } from "../components/AccountDropdown";
 import {
   HomeIcon,
   BuildingOfficeIcon,
@@ -64,11 +64,10 @@ export function NavMobile({
     >
       <DrawerContent>
         <DrawerHeader className="flex justify-between items-center">
-          <span className="text-xl font-bold dark:text-white">
-            Management App
-          </span>
+          <AccountDropdown className="flex-1 max-w-[200px]" />
         </DrawerHeader>
         <DrawerBody>
+          <Divider className="my-4" />
           <div className="flex flex-col space-y-1">
             {navItems.map((item) => (
               <Link
@@ -86,8 +85,6 @@ export function NavMobile({
               </Link>
             ))}
           </div>
-          <Divider className="my-4" />
-          <AccountsList heading="Your Accounts" />
           <div className="mt-6 flex justify-center">
             <DarkModeToggle />
           </div>

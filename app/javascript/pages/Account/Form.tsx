@@ -34,7 +34,7 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
     <form onSubmit={handleSubmit} method="post" className="mx-auto max-w-5xl">
       <Card className="shadow-sm">
         <CardHeader className="bg-gray-50 dark:bg-gray-800">
-          <h2 className="text-2xl font-bold">Account Details</h2>
+          <h2 className="text-2xl font-bold mr-2">Account Details</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             Manage basic account information and settings
           </p>

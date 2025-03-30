@@ -1,6 +1,7 @@
 export interface AccountType {
   id: number;
   name: string;
+  users_count?: number;
   // Future fields (commented out until implemented in backend)
   // type?: string;
   // status?: 'active' | 'inactive' | 'pending';

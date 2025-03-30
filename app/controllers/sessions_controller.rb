@@ -17,6 +17,15 @@ class SessionsController < ApplicationController
     end
   end
 
+  def select_account
+    @account = Current.user.accounts.find(params[:account_id])
+    @account_user = Current.user.account_users.find_by!(account: @account)
+    Current.session.update!(account: @account, account_user: @account_user)
+    redirect_back_or_to root_url
+  rescue ActiveRecord::RecordNotFound => e
+    redirect_back_or_to root_url, alert: e.message
+  end
+
   def destroy
     terminate_session
     redirect_to new_session_path

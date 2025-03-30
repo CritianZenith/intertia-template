@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 import { Divider, Switch } from "@heroui/react";
-import { AccountsList } from "../components/AccountsList";
+import { AccountDropdown } from "../components/AccountDropdown";
 import {
   HomeIcon,
   BuildingOfficeIcon,
@@ -65,9 +65,7 @@ export function NavDesktop({
           }}
         >
           <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-xl font-bold dark:text-white">
-              Management App
-            </span>
+            <AccountDropdown className="flex-1 max-w-[180px]" />
             <button
               onClick={toggleExpanded}
               className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -76,8 +74,10 @@ export function NavDesktop({
             </button>
           </div>
 
-          <div className="flex-1 flex flex-col overflow-y-auto p-2">
-            <nav className="flex-1 space-y-1 mt-2">
+          <div className="flex-1 flex flex-col overflow-y-auto p-4">
+            <Divider className="my-4" />
+
+            <nav className="flex-1 space-y-1">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
@@ -93,11 +93,8 @@ export function NavDesktop({
                 </Link>
               ))}
             </nav>
-
-            <Divider className="my-4" />
-            <AccountsList heading="Your Accounts" />
           </div>
-          <div className="mt-4 flex justify-center">
+          <div className="mt-4 p-4 flex justify-center border-t border-gray-200 dark:border-gray-700">
             <DarkModeToggle />
           </div>
         </div>

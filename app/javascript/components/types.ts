@@ -1,6 +1,7 @@
 // Interface for the account data returned from GraphQL
 export interface Account {
   id: string;
+  internalId: number;
   name: string;
 }
 
@@ -12,4 +13,8 @@ export interface AccountsData {
   accounts: {
     edges: AccountEdge[];
   };
+}
+
+export interface CurrentAccountData {
+  currentAccount: Account;
 }
