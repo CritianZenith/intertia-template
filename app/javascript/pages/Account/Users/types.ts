@@ -13,4 +13,4 @@ export interface AccountUserType {
 export interface AccountUserFormType {
   email_address: string;
   role: "admin" | "member";
-} 
+}

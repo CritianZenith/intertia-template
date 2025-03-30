@@ -55,9 +55,7 @@ export default function New({ account, available_roles, flash }: NewProps) {
         <BreadcrumbItem>
           <Link href={`/accounts/${account.id}`}>{account.name}</Link>
         </BreadcrumbItem>
-        <BreadcrumbItem>
-          Add New User
-        </BreadcrumbItem>
+        <BreadcrumbItem>Add New User</BreadcrumbItem>
       </Breadcrumbs>
 
       <h1 className="text-3xl font-bold my-6">Add New User</h1>
@@ -97,7 +95,9 @@ export default function New({ account, available_roles, flash }: NewProps) {
                   label="Role"
                   name="role"
                   selectedKeys={[data.role]}
-                  onChange={(e) => setData("role", e.target.value as "admin" | "member")}
+                  onChange={(e) =>
+                    setData("role", e.target.value as "admin" | "member")
+                  }
                   isInvalid={!!errors.role}
                   errorMessage={errors.role}
                   className="w-full"
@@ -145,4 +145,4 @@ export default function New({ account, available_roles, flash }: NewProps) {
       </div>
     </>
   );
-} 
+}

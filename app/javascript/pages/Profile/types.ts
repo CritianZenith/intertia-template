@@ -5,4 +5,4 @@ export interface UserType {
   bio: string | null;
 }
 
-export type UserFormType = Pick<UserType, "name" | "bio">; 
+export type UserFormType = Pick<UserType, "name" | "bio">;

@@ -38,7 +38,9 @@ interface ShowProps {
 }
 
 export default function Show({ account, account_users, flash }: ShowProps) {
-  const [flashVisible, setFlashVisible] = useState(!!flash.notice || !!flash.alert);
+  const [flashVisible, setFlashVisible] = useState(
+    !!flash.notice || !!flash.alert,
+  );
   const [selected, setSelected] = useState("details");
 
   const availableRoles = ["admin", "member"];
@@ -70,16 +72,25 @@ export default function Show({ account, account_users, flash }: ShowProps) {
     }
   };
 
-  const confirmRemove = (accountUserId: number, userName: string | null, isAdmin: boolean) => {
+  const confirmRemove = (
+    accountUserId: number,
+    userName: string | null,
+    isAdmin: boolean,
+  ) => {
     if (isAdmin) {
       const confirmMessage = `Are you sure you want to remove ${userName || "this admin"} from the account? This action cannot be undone.`;
       if (!confirm(confirmMessage)) return;
     }
-    
+
     router.delete(`/accounts/${account.id}/users/${accountUserId}`);
   };
 
-  const updateUserRole = (accountUserId: number, userName: string | null, currentRole: string, newRole: string) => {
+  const updateUserRole = (
+    accountUserId: number,
+    userName: string | null,
+    currentRole: string,
+    newRole: string,
+  ) => {
     if (currentRole === newRole) return;
 
     if (currentRole === "admin" && newRole !== "admin") {
@@ -88,7 +99,7 @@ export default function Show({ account, account_users, flash }: ShowProps) {
     }
 
     router.patch(`/accounts/${account.id}/users/${accountUserId}`, {
-      account_user: { role: newRole }
+      account_user: { role: newRole },
     });
   };
 
@@ -147,12 +158,14 @@ export default function Show({ account, account_users, flash }: ShowProps) {
               <Account account={account} />
             </div>
 
-            <Tabs aria-label="Account sections" selectedKey={selected} onSelectionChange={(key) => onChangeTab(key.toString())}>
+            <Tabs
+              aria-label="Account sections"
+              selectedKey={selected}
+              onSelectionChange={(key) => onChangeTab(key.toString())}
+            >
               <Tab key="details" title="Details">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-medium text-gray-500">
-                    Account Details
-                  </h3>
+                  <h3 className="font-medium text-gray-500">Account Details</h3>
                   <Button
                     as={Link}
                     href={`/accounts/${account.id}/edit`}
@@ -165,9 +178,7 @@ export default function Show({ account, account_users, flash }: ShowProps) {
                 <div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                      <div className="text-sm text-gray-500">
-                        Account Name
-                      </div>
+                      <div className="text-sm text-gray-500">Account Name</div>
                       <div className="font-medium">{account.name}</div>
                     </div>
                     <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
@@ -189,9 +200,7 @@ export default function Show({ account, account_users, flash }: ShowProps) {
               </Tab>
               <Tab key="users" title="Members">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-medium text-gray-500">
-                    Account Members
-                  </h3>
+                  <h3 className="font-medium text-gray-500">Account Members</h3>
                   <Button
                     as={Link}
                     href={`/accounts/${account.id}/users/new`}
@@ -221,27 +230,34 @@ export default function Show({ account, account_users, flash }: ShowProps) {
                           <Dropdown>
                             <DropdownTrigger>
                               <Button variant="light" size="sm">
-                                <Chip color={getRoleColor(account_user.role)} size="sm">
+                                <Chip
+                                  color={getRoleColor(account_user.role)}
+                                  size="sm"
+                                >
                                   {account_user.role}
                                 </Chip>
                               </Button>
                             </DropdownTrigger>
-                            <DropdownMenu 
+                            <DropdownMenu
                               aria-label="Role selection"
                               onAction={(key) => {
                                 updateUserRole(
-                                  account_user.id, 
-                                  account_user.user.name, 
-                                  account_user.role, 
-                                  key as string
+                                  account_user.id,
+                                  account_user.user.name,
+                                  account_user.role,
+                                  key as string,
                                 );
                               }}
                             >
                               {availableRoles.map((role) => (
-                                <DropdownItem 
+                                <DropdownItem
                                   key={role}
                                   textValue={role}
-                                  className={role === account_user.role ? "font-bold" : ""}
+                                  className={
+                                    role === account_user.role
+                                      ? "font-bold"
+                                      : ""
+                                  }
                                 >
                                   {role.charAt(0).toUpperCase() + role.slice(1)}
                                   {role === account_user.role && " (current)"}
@@ -256,11 +272,13 @@ export default function Show({ account, account_users, flash }: ShowProps) {
                               <Button
                                 color="danger"
                                 variant="light"
-                                onPress={() => confirmRemove(
-                                  account_user.id, 
-                                  account_user.user.name, 
-                                  account_user.role === "admin"
-                                )}
+                                onPress={() =>
+                                  confirmRemove(
+                                    account_user.id,
+                                    account_user.user.name,
+                                    account_user.role === "admin",
+                                  )
+                                }
                               >
                                 Remove
                               </Button>

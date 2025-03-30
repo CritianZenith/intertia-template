@@ -108,4 +108,4 @@ export default function Form({ user, onSubmit, submitText }: FormProps) {
       </Card>
     </form>
   );
-} 
+}

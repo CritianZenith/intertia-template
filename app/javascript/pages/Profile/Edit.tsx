@@ -45,4 +45,4 @@ export default function Edit({ user }: EditProps) {
       </div>
     </>
   );
-} 
+}

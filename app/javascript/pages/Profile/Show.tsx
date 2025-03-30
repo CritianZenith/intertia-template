@@ -96,7 +96,7 @@ export default function Show({ user, flash }: ShowProps) {
               >
                 Edit Profile
               </Button>
-              <Button 
+              <Button
                 as={Link}
                 href="/"
                 variant="flat"
@@ -117,4 +117,4 @@ export default function Show({ user, flash }: ShowProps) {
       </div>
     </>
   );
-} 
+}

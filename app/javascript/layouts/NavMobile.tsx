@@ -68,7 +68,6 @@ export function NavMobile({
         </DrawerHeader>
         <DrawerBody>
           <Divider className="my-4" />
-          
           <div className="flex flex-col space-y-1">
             {navItems.map((item) => (
               <Link
