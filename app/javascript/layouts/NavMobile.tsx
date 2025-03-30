@@ -17,6 +17,7 @@ import {
   CogIcon,
   SunIcon,
   MoonIcon,
+  Bars3Icon,
 } from "@heroicons/react/24/outline";
 
 interface NavMobileProps {
@@ -55,19 +56,30 @@ export function NavMobile({
     </div>
   );
 
+  const CloseButton = () => (
+    <button
+      onClick={() => onOpenChange(false)}
+      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+    >
+      <Bars3Icon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+    </button>
+  );
+
   return (
     <Drawer
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       size="xs"
       placement="left"
+      backdrop="blur"
+      hideCloseButton
     >
       <DrawerContent>
         <DrawerHeader className="flex justify-between items-center">
           <AccountDropdown className="flex-1 max-w-[200px]" />
+          <CloseButton />
         </DrawerHeader>
         <DrawerBody>
-          <Divider className="my-4" />
           <div className="flex flex-col space-y-1">
             {navItems.map((item) => (
               <Link
@@ -85,13 +97,10 @@ export function NavMobile({
               </Link>
             ))}
           </div>
+        </DrawerBody>
+        <DrawerFooter className="justify-center">
           <div className="mt-6 flex justify-center">
             <DarkModeToggle />
-          </div>
-        </DrawerBody>
-        <DrawerFooter>
-          <div className="text-xs text-gray-500 dark:text-gray-400">
-            © {new Date().getFullYear()} Management App
           </div>
         </DrawerFooter>
       </DrawerContent>

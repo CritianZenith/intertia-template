@@ -58,7 +58,7 @@ export function NavDesktop({
       >
         {/* Inner content with opacity transition to avoid animating text */}
         <div
-          className={`flex flex-col max-h-screen w-64 ${isExpanded ? "opacity-100" : "opacity-0"}`}
+          className={`flex flex-col justify-between h-screen w-64 ${isExpanded ? "opacity-100" : "opacity-0"}`}
           style={{
             transition: "opacity 0.15s ease-in-out",
             transitionDelay: isExpanded ? "0.15s" : "0s",
@@ -75,8 +75,6 @@ export function NavDesktop({
           </div>
 
           <div className="flex-1 flex flex-col overflow-y-auto p-4">
-            <Divider className="my-4" />
-
             <nav className="flex-1 space-y-1">
               {navItems.map((item) => (
                 <Link
