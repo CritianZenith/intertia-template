@@ -7,9 +7,20 @@ export const GET_ACCOUNTS = gql`
       edges {
         node {
           id
+          internalId
           name
         }
       }
+    }
+  }
+`;
+
+export const GET_CURRENT_ACCOUNT = gql`
+  query GetCurrentAccount {
+    currentAccount {
+      id
+      internalId
+      name
     }
   }
 `;
@@ -18,7 +29,7 @@ export const GET_ACCOUNTS = gql`
 export const GET_CURRENT_USER = gql`
   query GetCurrentUser {
     me {
-      id
+      internalId
       emailAddress
     }
   }

@@ -17,5 +17,11 @@ module Types
         true
       end
     end
+
+    field :internal_id, ID, null: true
+
+    def internal_id
+      object&.id
+    end
   end
 end

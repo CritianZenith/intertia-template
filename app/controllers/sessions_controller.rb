@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
 
   def select_account
     @account = Current.user.accounts.find(params[:account_id])
-    @account_user = @account.account_users.find_by!(user: Current.user)
+    @account_user = Current.user.account_users.find_by!(account: @account)
     Current.session.update!(account: @account, account_user: @account_user)
     redirect_to root_url
   rescue ActiveRecord::RecordNotFound => e
