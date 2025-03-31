@@ -9,6 +9,7 @@ import {
   CardFooter,
   Alert,
   Divider,
+  Image,
 } from "@heroui/react";
 import { Link } from "@inertiajs/react";
 
@@ -50,6 +51,26 @@ export default function Show({ user, flash }: ShowProps) {
           </CardHeader>
           <CardBody className="p-6">
             <div className="mb-6">
+              <div className="flex items-center gap-6 mb-6">
+                {user.avatar_url ? (
+                  <Image
+                    src={user.avatar_url}
+                    alt="Profile picture"
+                    className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
+                  />
+                ) : (
+                  <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </div>
+                )}
+                <div>
+                  <h3 className="text-xl font-semibold">{user.name || "Anonymous User"}</h3>
+                  <p className="text-gray-500">{user.email_address}</p>
+                </div>
+              </div>
+
               <h3 className="text-md font-medium text-gray-500 mb-4">
                 Personal Details
               </h3>
