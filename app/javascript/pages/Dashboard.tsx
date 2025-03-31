@@ -8,29 +8,10 @@ export default function Dashboard() {
     <>
       <Head title="Dashboard" />
 
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="max-w-7xl mx-auto md:p-6">
         <h1 className="text-3xl font-bold mb-6">Welcome to your Dashboard</h1>
 
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="shadow-sm">
-            <CardHeader className="bg-gray-50 dark:bg-gray-800">
-              <h2 className="text-xl font-semibold">Accounts</h2>
-            </CardHeader>
-            <CardBody>
-              <p className="text-gray-600 dark:text-gray-400">
-                Manage your accounts and their settings
-              </p>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              <Link
-                href="/accounts"
-                className="text-primary hover:text-primary-dark"
-              >
-                View Accounts →
-              </Link>
-            </CardFooter>
-          </Card>
 
           <Card className="shadow-sm">
             <CardHeader className="bg-gray-50 dark:bg-gray-800">

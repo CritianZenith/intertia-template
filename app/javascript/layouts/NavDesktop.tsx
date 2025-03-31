@@ -1,52 +1,32 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-import { Switch } from "@heroui/react";
 import { AccountDropdown } from "../components/AccountDropdown";
+import { ProfileDropdown } from "../components/ProfileDropdown";
 import {
   HomeIcon,
   BuildingOfficeIcon,
   UserIcon,
   CogIcon,
-  SunIcon,
-  MoonIcon,
   Bars3Icon,
 } from "@heroicons/react/24/outline";
 
 interface NavDesktopProps {
   pathname: string;
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
   isExpanded: boolean;
   toggleExpanded: () => void;
 }
 
 export function NavDesktop({
   pathname,
-  isDarkMode,
-  toggleDarkMode,
   isExpanded,
   toggleExpanded,
 }: NavDesktopProps) {
   // Define navigation items
   const navItems = [
     { name: "Dashboard", href: "/", icon: HomeIcon },
-    { name: "Accounts", href: "/accounts", icon: BuildingOfficeIcon },
     { name: "Profile", href: "/profile", icon: UserIcon },
     { name: "Settings", href: "/settings", icon: CogIcon },
   ];
-
-  // Dark mode toggle component
-  const DarkModeToggle = () => (
-    <div className="flex items-center space-x-2">
-      <SunIcon className="h-5 w-5 text-gray-500" />
-      <Switch
-        isSelected={isDarkMode}
-        onValueChange={toggleDarkMode}
-        size="sm"
-      />
-      <MoonIcon className="h-5 w-5 text-gray-500" />
-    </div>
-  );
 
   return (
     <>
@@ -93,7 +73,7 @@ export function NavDesktop({
             </nav>
           </div>
           <div className="mt-4 p-4 flex justify-center border-t border-gray-200 dark:border-gray-700">
-            <DarkModeToggle />
+            <ProfileDropdown />
           </div>
         </div>
       </div>

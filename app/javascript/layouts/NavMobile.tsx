@@ -5,17 +5,15 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Switch,
 } from "@heroui/react";
 import { Link } from "@inertiajs/react";
 import { AccountDropdown } from "../components/AccountDropdown";
+import { ProfileDropdown } from "../components/ProfileDropdown";
 import {
   HomeIcon,
   BuildingOfficeIcon,
   UserIcon,
   CogIcon,
-  SunIcon,
-  MoonIcon,
   Bars3Icon,
 } from "@heroicons/react/24/outline";
 
@@ -23,37 +21,19 @@ interface NavMobileProps {
   pathname: string;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
 }
 
 export function NavMobile({
   pathname,
   isOpen,
   onOpenChange,
-  isDarkMode,
-  toggleDarkMode,
 }: NavMobileProps) {
   // Define navigation items
   const navItems = [
     { name: "Dashboard", href: "/", icon: HomeIcon },
-    { name: "Accounts", href: "/accounts", icon: BuildingOfficeIcon },
     { name: "Profile", href: "/profile", icon: UserIcon },
     { name: "Settings", href: "/settings", icon: CogIcon },
   ];
-
-  // Dark mode toggle component
-  const DarkModeToggle = () => (
-    <div className="flex items-center space-x-2">
-      <SunIcon className="h-5 w-5 text-gray-500" />
-      <Switch
-        isSelected={isDarkMode}
-        onValueChange={toggleDarkMode}
-        size="sm"
-      />
-      <MoonIcon className="h-5 w-5 text-gray-500" />
-    </div>
-  );
 
   const CloseButton = () => (
     <button
@@ -98,8 +78,8 @@ export function NavMobile({
           </div>
         </DrawerBody>
         <DrawerFooter className="justify-center">
-          <div className="mt-6 flex justify-center">
-            <DarkModeToggle />
+          <div className="mt-6 flex justify-center w-full">
+            <ProfileDropdown />
           </div>
         </DrawerFooter>
       </DrawerContent>
