@@ -6,7 +6,9 @@ alwaysApply: false
 
 # Use React, Apollo and Tailwind/HeroUI
 
-- For our UI components, we are using HeroUI, which we should use for all react components where possible (avoid implementing our own components unless necessary)
+- For our UI components, we are using HeroUI, which we should use for all react components where possible (avoid implementing our own components unless necessary).
+
+- Always use Typescript for react components! `.tsx`
 
 - Here our tailwind configuration: [tailwind.config.js](mdc:config/tailwind.config.js)
 

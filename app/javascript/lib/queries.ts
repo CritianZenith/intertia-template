@@ -9,6 +9,7 @@ export const GET_ACCOUNTS = gql`
           id
           internalId
           name
+          avatarUrl
         }
       }
     }
@@ -21,6 +22,7 @@ export const GET_CURRENT_ACCOUNT = gql`
       id
       internalId
       name
+      avatarUrl
     }
   }
 `;

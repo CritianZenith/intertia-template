@@ -30,7 +30,9 @@ export default function Edit({ user }: EditProps) {
         user={user}
         onSubmit={(form) => {
           form.transform((data) => ({ user: data }));
-          form.patch("/profile");
+          form.patch("/profile", {
+            forceFormData: true,
+          });
         }}
         submitText="Update Profile"
       />

@@ -1,5 +1,5 @@
 import { AccountType } from "./types";
-import { Chip } from "@heroui/react";
+import { Chip, Avatar } from "@heroui/react";
 
 import { ApplicationLayout } from "../../layouts/Layout";
 
@@ -15,13 +15,30 @@ function Account({ account }: AccountProps) {
   return (
     <div className="flex flex-col w-full">
       <div className="flex items-center space-x-4">
-        <div
-          className={`w-12 h-12 rounded-full bg-${accountColor}-100 flex items-center justify-center`}
-        >
-          <span className={`text-${accountColor}-600 text-xl font-bold`}>
-            {account.name.charAt(0).toUpperCase()}
-          </span>
-        </div>
+        {account.avatar_url ? (
+          <Avatar
+            src={account.avatar_url}
+            alt={account.name}
+            className="w-12 h-12 rounded-full"
+            fallback={
+              <div
+                className={`w-12 h-12 rounded-full bg-${accountColor}-100 flex items-center justify-center`}
+              >
+                <span className={`text-${accountColor}-600 text-xl font-bold`}>
+                  {account.name.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            }
+          />
+        ) : (
+          <div
+            className={`w-12 h-12 rounded-full bg-${accountColor}-100 flex items-center justify-center`}
+          >
+            <span className={`text-${accountColor}-600 text-xl font-bold`}>
+              {account.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        )}
 
         <div className="flex-1">
           <div className="flex items-center gap-2">

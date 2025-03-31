@@ -26,12 +26,16 @@ class ProfilesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :bio)
+    params.require(:user).permit(:name, :bio, :avatar)
   end
 
   def serialize_user(user)
-    user.as_json(only: [
+    json = user.as_json(only: [
       :id, :email_address, :name, :bio
     ])
+
+    json[:avatar_url] = user.avatar.attached? ? polymorphic_url(user.avatar) : nil
+
+    json
   end
 end

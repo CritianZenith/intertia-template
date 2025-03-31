@@ -67,6 +67,7 @@ export function AccountDropdown({ className = "" }: AccountDropdownProps) {
           >
             <span className="flex items-center">
               <Avatar
+                src={currentAccount?.avatarUrl || undefined}
                 name={currentAccount?.name?.slice(0, 1) || "A"}
                 className="mr-2"
                 size="sm"
@@ -93,6 +94,7 @@ export function AccountDropdown({ className = "" }: AccountDropdownProps) {
                   </div>
                 ) : (
                   <Avatar
+                    src={item.account?.avatarUrl || undefined}
                     name={item.name.slice(0, 1)}
                     className="mr-2"
                     size="sm"

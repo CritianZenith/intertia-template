@@ -75,7 +75,7 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def account_params
-      params.require(:account).permit(:name)
+      params.require(:account).permit(:name, :avatar)
     end
 
     def serialize_account(account)
@@ -83,6 +83,7 @@ class AccountsController < ApplicationController
       json[:id] = account.id if account.id
       json[:name] = account.name
       json[:users_count] = account.users_count if account.id
+      json[:avatar_url] = account.avatar.attached? ? Rails.application.routes.url_helpers.rails_blob_url(account.avatar) : nil
 
       json
     end

@@ -3,6 +3,12 @@ export interface UserType {
   email_address: string;
   name: string | null;
   bio: string | null;
+  avatar_url: string | null;
 }
 
-export type UserFormType = Pick<UserType, "name" | "bio">;
+export type UserFormType = {
+  name: string | null;
+  bio: string | null;
+  avatar: File | null;
+  [key: string]: string | File | null; // More specific index signature
+};

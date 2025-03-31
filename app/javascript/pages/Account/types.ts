@@ -2,6 +2,7 @@ export interface AccountType {
   id: number;
   name: string;
   users_count?: number;
+  avatar_url?: string | null;
   // Future fields (commented out until implemented in backend)
   // type?: string;
   // status?: 'active' | 'inactive' | 'pending';
@@ -9,7 +10,11 @@ export interface AccountType {
   // updatedAt?: string;
 }
 
-export type AccountFormType = Omit<AccountType, "id">;
+export interface AccountFormType {
+  name: string;
+  avatar: File | null;
+  [key: string]: string | File | null; // More specific index signature
+}
 
 // For future use with permissions
 export interface AccountUserType {
