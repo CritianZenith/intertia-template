@@ -22,53 +22,6 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
   const pathname = url;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNavExpanded, setIsNavExpanded] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  // Initialize dark mode based on system preference or saved setting
-  useEffect(() => {
-    // Check if user has a saved preference
-    const savedTheme = localStorage.getItem("theme");
-
-    if (
-      savedTheme === "dark" ||
-      (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-      // Ensure cookie is in sync
-      document.cookie = "theme=dark; path=/; max-age=31536000; SameSite=Lax";
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
-      // Ensure cookie is in sync
-      document.cookie = "theme=light; path=/; max-age=31536000; SameSite=Lax";
-    }
-  }, []);
-
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      document.cookie = "theme=light; path=/; max-age=31536000; SameSite=Lax";
-      // Update theme-color meta tag
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMeta) {
-        themeColorMeta.setAttribute("content", "#f3f4f6");
-      }
-      setIsDarkMode(false);
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      document.cookie = "theme=dark; path=/; max-age=31536000; SameSite=Lax";
-      // Update theme-color meta tag
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMeta) {
-        themeColorMeta.setAttribute("content", "#111827");
-      }
-      setIsDarkMode(true);
-    }
-  };
 
   // Toggle nav expansion
   const toggleNavExpanded = () => {
@@ -94,8 +47,6 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
         {/* Desktop Navigation */}
         <NavDesktop
           pathname={pathname}
-          isDarkMode={isDarkMode}
-          toggleDarkMode={toggleDarkMode}
           isExpanded={isNavExpanded}
           toggleExpanded={toggleNavExpanded}
         />
@@ -105,8 +56,6 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
           pathname={pathname}
           isOpen={isSidebarOpen}
           onOpenChange={setIsSidebarOpen}
-          isDarkMode={isDarkMode}
-          toggleDarkMode={toggleDarkMode}
         />
 
         {/* Content container that adjusts based on nav state */}
@@ -129,7 +78,7 @@ export function ApplicationLayout({ children }: { children: React.ReactNode }) {
           {/* Main content */}
           <main className="flex-1 overflow-y-auto overflow-x-hidden lg:pt-4 pb-safe">
             <div
-              className={`w-full ${!isNavExpanded ? "lg:px-16" : ""} px-4 max-w-full mx-auto pb-6`}
+              className={`w-full ${!isNavExpanded ? "md:px-8 lg:px-16" : ""} px-4 max-w-full mx-auto pb-6`}
             >
               {children}
             </div>

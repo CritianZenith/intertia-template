@@ -1,6 +1,6 @@
 import { Head, useForm, Link, router } from "@inertiajs/react";
 import { FormEvent } from "react";
-import { AccountType } from "../types";
+import { AccountUserFormType } from "./types";
 import {
   Button,
   Breadcrumbs,
@@ -17,43 +17,40 @@ import {
 } from "@heroui/react";
 
 interface NewProps {
-  account: AccountType;
-  available_roles: string[];
-  flash?: { notice?: string };
+  errors?: Record<string, string[]>;
+  flash?: { notice?: string; alert?: string };
 }
 
-export default function New({ account, available_roles, flash }: NewProps) {
-  const form = useForm({
+export default function New({ errors = {}, flash }: NewProps) {
+  const form = useForm<AccountUserFormType>({
     email_address: "",
-    role: "member" as "admin" | "member",
+    role: "member",
   });
 
-  const { data, setData, errors, processing } = form;
+  const { data, setData, processing } = form;
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    router.post(`/accounts/${account.id}/users`, data, {
-      preserveState: true,
-      preserveScroll: true,
+    router.post("/settings/users", {
+      account_user: data,
     });
   }
 
+  const available_roles = ["admin", "member"];
+
   return (
     <>
-      <Head title={`Account: ${account.name} - Add User`} />
+      <Head title="Settings - Add User" />
 
-      {flash?.notice && (
-        <Alert className="mb-6" color="danger">
-          {flash.notice}
+      {(flash?.notice || flash?.alert) && (
+        <Alert className="mb-6" color={flash.alert ? "danger" : "success"}>
+          {flash.notice || flash.alert}
         </Alert>
       )}
 
       <Breadcrumbs className="mb-6">
         <BreadcrumbItem>
-          <Link href="/accounts">Accounts</Link>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <Link href={`/accounts/${account.id}`}>{account.name}</Link>
+          <Link href="/settings">Settings</Link>
         </BreadcrumbItem>
         <BreadcrumbItem>Add New User</BreadcrumbItem>
       </Breadcrumbs>
@@ -81,7 +78,7 @@ export default function New({ account, available_roles, flash }: NewProps) {
                   value={data.email_address}
                   onChange={(e) => setData("email_address", e.target.value)}
                   isInvalid={!!errors.email_address}
-                  errorMessage={errors.email_address}
+                  errorMessage={errors.email_address?.[0]}
                   placeholder="user@example.com"
                   className="w-full"
                   labelPlacement="outside"
@@ -99,7 +96,7 @@ export default function New({ account, available_roles, flash }: NewProps) {
                     setData("role", e.target.value as "admin" | "member")
                   }
                   isInvalid={!!errors.role}
-                  errorMessage={errors.role}
+                  errorMessage={errors.role?.[0]}
                   className="w-full"
                   labelPlacement="outside"
                   description="Select the user's role in this account"
@@ -119,7 +116,7 @@ export default function New({ account, available_roles, flash }: NewProps) {
           <CardFooter className="flex justify-end gap-4 bg-gray-50 dark:bg-gray-800">
             <Button
               as={Link}
-              href={`/accounts/${account.id}`}
+              href="/settings?tab=users"
               variant="light"
               size="lg"
             >
@@ -139,8 +136,8 @@ export default function New({ account, available_roles, flash }: NewProps) {
       </form>
 
       <div className="flex justify-end mt-6">
-        <Button as={Link} href={`/accounts/${account.id}`} variant="light">
-          Back to account
+        <Button as={Link} href="/settings?tab=users" variant="light">
+          Back to Settings
         </Button>
       </div>
     </>

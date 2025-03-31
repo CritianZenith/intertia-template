@@ -7,9 +7,7 @@ Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
 
   # Main Web App
-  resources :accounts do
-    resources :users, only: [ :new, :create, :destroy, :update ], controller: "account_users"
-  end
+  resources :accounts, only: [ :new, :create ]
 
   # Authentication
   resource :session do
@@ -18,6 +16,15 @@ Rails.application.routes.draw do
   get "/session/destroy", to: "sessions#destroy"
   resources :passwords, param: :token
   resource :profile, only: [ :show, :edit, :update ]
+
+  # Settings
+  get "/settings", to: "settings#show"
+  get "/settings/edit", to: "settings#edit", as: "edit_settings"
+  patch "/settings", to: "settings#update"
+  get "/settings/users/new", to: "settings/users#new", as: "new_settings_user"
+  post "/settings/users", to: "settings/users#create", as: "settings_users"
+  patch "/settings/users/:id", to: "settings/users#update", as: "settings_user"
+  delete "/settings/users/:id", to: "settings/users#destroy"
 
   # Inertia Example
   get "inertia-example", to: "inertia_example#index"

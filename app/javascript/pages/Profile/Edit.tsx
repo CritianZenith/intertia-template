@@ -15,9 +15,6 @@ export default function Edit({ user }: EditProps) {
 
       <Breadcrumbs className="mb-6">
         <BreadcrumbItem>
-          <Link href="/">Dashboard</Link>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
           <Link href="/profile">Profile</Link>
         </BreadcrumbItem>
         <BreadcrumbItem>Edit</BreadcrumbItem>

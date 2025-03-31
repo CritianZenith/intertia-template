@@ -26,7 +26,7 @@ export default function New({ flash }: NewProps) {
 
       <div
         id="container"
-        className="max-w-md min-h-screen flex flex-col justify-center items-center mx-auto rounded-md"
+        className="max-w-xs lg:max-w-md min-h-screen flex flex-col justify-center items-center mx-auto rounded-md"
       >
         <div className="mx-auto md:w-2/3 w-full">
           {flash.alert && (

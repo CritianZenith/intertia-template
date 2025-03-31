@@ -21,6 +21,7 @@ interface MenuItem {
   name: string;
   isNew?: boolean;
   account?: Account;
+  href?: string;
 }
 
 export function AccountDropdown({ className = "" }: AccountDropdownProps) {
@@ -52,9 +53,10 @@ export function AccountDropdown({ className = "" }: AccountDropdownProps) {
     ...accounts.map((account) => ({
       id: account.id,
       name: account.name,
+      href: `/session/select_account/${account.internalId}`,
       account,
     })),
-    { id: "new", name: "New account", isNew: true },
+    { id: "new", name: "New account", isNew: true, href: "/accounts/new" },
   ];
 
   return (
@@ -84,6 +86,7 @@ export function AccountDropdown({ className = "" }: AccountDropdownProps) {
             <DropdownItem
               key={item.account?.internalId || item.id}
               onPress={() => handleSelectAccount(item.account)}
+              href={item.href}
               as={Link}
               className="py-2"
             >
