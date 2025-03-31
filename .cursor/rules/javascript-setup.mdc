@@ -11,6 +11,7 @@ alwaysApply: false
  -`~/lib`, `app/javascript/lib`, respectively.
 
 - We have a list of graphql queries: [queries.ts](mdc:app/javascript/lib/queries.ts)
+- Important to note: all GraphQL fields will be camelCase
 
 ## Using scripts
 

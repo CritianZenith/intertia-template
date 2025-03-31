@@ -3,6 +3,7 @@ export interface Account {
   id: string;
   internalId: number;
   name: string;
+  avatarUrl?: string | null;
 }
 
 export interface AccountEdge {

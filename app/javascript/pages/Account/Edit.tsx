@@ -3,6 +3,9 @@ import Form from "./Form";
 import { AccountType } from "./types";
 import { Button, Divider, Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 import { Link } from "@inertiajs/react";
+import { GET_ACCOUNTS } from "@/lib/queries";
+import { GET_CURRENT_ACCOUNT } from "@/lib/queries";
+import { client } from "@/lib/apollo";
 
 interface EditProps {
   account: AccountType;
@@ -30,7 +33,13 @@ export default function Edit({ account }: EditProps) {
         account={account}
         onSubmit={(form) => {
           form.transform((data) => ({ account: data }));
-          form.patch(`/accounts/${account.id}`);
+          form.patch(`/accounts/${account.id}`, {
+            onFinish: async () => {
+              await client.refetchQueries({
+                include: [GET_ACCOUNTS, GET_CURRENT_ACCOUNT],
+              });
+            },
+          });
         }}
         submitText="Update Account"
       />

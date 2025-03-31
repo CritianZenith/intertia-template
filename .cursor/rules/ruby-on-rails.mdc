@@ -17,3 +17,5 @@ alwaysApply: false
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 ```
+
+- When working with GraphQL all our ruby fields on GraqhQL types from app/graphql/types will be written in snake_case in our ruby code, but will appear as camelCase when interacting with the GraphQL API
