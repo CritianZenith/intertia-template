@@ -5,7 +5,6 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Divider,
   Switch,
 } from "@heroui/react";
 import { Link } from "@inertiajs/react";

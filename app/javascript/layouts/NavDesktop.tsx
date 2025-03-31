@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-import { Divider, Switch } from "@heroui/react";
+import { Switch } from "@heroui/react";
 import { AccountDropdown } from "../components/AccountDropdown";
 import {
   HomeIcon,

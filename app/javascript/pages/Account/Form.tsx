@@ -26,7 +26,9 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
     avatar: null as File | null,
   });
   const { data, setData, errors, processing } = form;
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(account.avatar_url || null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(
+    account.avatar_url || null,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -37,7 +39,7 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setData("avatar", file);
-    
+
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -48,7 +50,12 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} method="post" className="mx-auto max-w-5xl" encType="multipart/form-data">
+    <form
+      onSubmit={handleSubmit}
+      method="post"
+      className="mx-auto max-w-5xl"
+      encType="multipart/form-data"
+    >
       <Card className="shadow-sm">
         <CardHeader className="bg-gray-50 dark:bg-gray-800">
           <h2 className="text-2xl font-bold mr-2">Account Details</h2>
@@ -75,8 +82,19 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
                         />
                       ) : (
                         <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-400">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-12 w-12"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            />
                           </svg>
                         </div>
                       )}
@@ -101,7 +119,8 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
                           onPress={() => {
                             setAvatarPreview(null);
                             setData("avatar", null);
-                            if (fileInputRef.current) fileInputRef.current.value = "";
+                            if (fileInputRef.current)
+                              fileInputRef.current.value = "";
                           }}
                           size="sm"
                           color="danger"
@@ -112,10 +131,13 @@ export default function Form({ account, onSubmit, submitText }: FormProps) {
                         </Button>
                       )}
                       <p className="text-xs text-gray-500 mt-1">
-                        Upload a square image for best results. Maximum size: 5MB.
+                        Upload a square image for best results. Maximum size:
+                        5MB.
                       </p>
                       {errors.avatar && (
-                        <p className="text-red-500 text-xs mt-1">{errors.avatar}</p>
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.avatar}
+                        </p>
                       )}
                     </div>
                   </div>

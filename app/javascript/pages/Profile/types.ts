@@ -10,5 +10,5 @@ export type UserFormType = {
   name: string | null;
   bio: string | null;
   avatar: File | null;
-  [key: string]: any;
-}
+  [key: string]: string | File | null; // More specific index signature
+};
