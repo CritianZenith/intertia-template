@@ -1,6 +1,5 @@
 import { Head, useForm, Link, router } from "@inertiajs/react";
 import { FormEvent } from "react";
-import { SettingsAccountType } from "../types";
 import { AccountUserFormType } from "./types";
 import {
   Button,
@@ -18,12 +17,11 @@ import {
 } from "@heroui/react";
 
 interface NewProps {
-  account: SettingsAccountType;
   errors?: Record<string, string[]>;
   flash?: { notice?: string; alert?: string };
 }
 
-export default function New({ account, errors = {}, flash }: NewProps) {
+export default function New({ errors = {}, flash }: NewProps) {
   const form = useForm<AccountUserFormType>({
     email_address: "",
     role: "member",
@@ -34,7 +32,7 @@ export default function New({ account, errors = {}, flash }: NewProps) {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     router.post("/settings/users", {
-      account_user: data
+      account_user: data,
     });
   }
 
@@ -144,4 +142,4 @@ export default function New({ account, errors = {}, flash }: NewProps) {
       </div>
     </>
   );
-} 
+}

@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react'
+import { usePage } from "@inertiajs/react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -6,15 +6,12 @@ import {
   DropdownItem,
   Button,
   Avatar,
-  Switch,
 } from "@heroui/react";
 import { Link } from "@inertiajs/react";
 import {
   ArrowRightOnRectangleIcon,
   UserIcon,
   CogIcon,
-  SunIcon,
-  MoonIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/outline";
 
@@ -28,10 +25,8 @@ interface User {
   avatar_url?: string;
 }
 
-export function ProfileDropdown({
-  className = "",
-}: ProfileDropdownProps) {
-  let { user: userData } = usePage().props;
+export function ProfileDropdown({ className = "" }: ProfileDropdownProps) {
+  const { user: userData } = usePage().props;
 
   const user = userData as User;
 
@@ -47,7 +42,11 @@ export function ProfileDropdown({
             <div className="flex items-center space-x-2">
               <Avatar
                 src={user.avatar_url}
-                name={user.name ? user.name.slice(0, 1) : user.email_address.slice(0, 1)}
+                name={
+                  user.name
+                    ? user.name.slice(0, 1)
+                    : user.email_address.slice(0, 1)
+                }
                 size="sm"
               />
               <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -66,19 +65,29 @@ export function ProfileDropdown({
               </span>
             </div>
           </DropdownItem>
-          
-          <DropdownItem key="profile" as={Link} href="/profile" startContent={<UserIcon className="h-5 w-5" />}>
+
+          <DropdownItem
+            key="profile"
+            as={Link}
+            href="/profile"
+            startContent={<UserIcon className="h-5 w-5" />}
+          >
             Profile
           </DropdownItem>
-          
-          <DropdownItem key="settings" as={Link} href="/settings" startContent={<CogIcon className="h-5 w-5" />}>
+
+          <DropdownItem
+            key="settings"
+            as={Link}
+            href="/settings"
+            startContent={<CogIcon className="h-5 w-5" />}
+          >
             Settings
           </DropdownItem>
-          
-          <DropdownItem 
-            key="logout" 
-            color="danger" 
-            as={Link} 
+
+          <DropdownItem
+            key="logout"
+            color="danger"
+            as={Link}
             href="/session/destroy"
             startContent={<ArrowRightOnRectangleIcon className="h-5 w-5" />}
           >
@@ -88,4 +97,4 @@ export function ProfileDropdown({
       </Dropdown>
     </div>
   );
-} 
+}

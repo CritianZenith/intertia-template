@@ -12,7 +12,6 @@ export default function Dashboard() {
         <h1 className="text-3xl font-bold mb-6">Welcome to your Dashboard</h1>
 
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-
           <Card className="shadow-sm">
             <CardHeader className="bg-gray-50 dark:bg-gray-800">
               <h2 className="text-xl font-semibold">Profile</h2>

@@ -1,16 +1,6 @@
 import { useForm } from "@inertiajs/react";
 import { SettingsAccountType, SettingsFormType } from "./types";
-import {
-  Button,
-  Divider,
-  Input,
-  Textarea,
-  Card,
-  CardBody,
-  CardHeader,
-  CardFooter,
-  Image,
-} from "@heroui/react";
+import { Button, Input, Image } from "@heroui/react";
 import { useState, useRef, ChangeEvent } from "react";
 
 interface FormProps {
@@ -22,7 +12,7 @@ export default function Form({ account, errors }: FormProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(account.avatar_url);
 
-  const { data, setData, post, processing, wasSuccessful } = useForm<SettingsFormType>({
+  const { data, setData, post, processing } = useForm<SettingsFormType>({
     name: account.name || "",
     avatar: null,
   });
@@ -38,7 +28,7 @@ export default function Form({ account, errors }: FormProps) {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setData("avatar", file);
-      
+
       // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -120,9 +110,7 @@ export default function Form({ account, errors }: FormProps) {
                 Supported formats: JPEG, PNG, GIF
               </p>
               {errors?.avatar && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.avatar[0]}
-                </p>
+                <p className="text-red-500 text-xs mt-1">{errors.avatar[0]}</p>
               )}
             </div>
           </div>
@@ -150,23 +138,14 @@ export default function Form({ account, errors }: FormProps) {
         </div>
 
         <div className="flex justify-end gap-2">
-          <Button
-            type="button"
-            color="secondary"
-            href="/settings"
-            as="a"
-          >
+          <Button type="button" color="secondary" href="/settings" as="a">
             Cancel
           </Button>
-          <Button
-            type="submit"
-            color="primary"
-            isLoading={processing}
-          >
+          <Button type="submit" color="primary" isLoading={processing}>
             Save Changes
           </Button>
         </div>
       </div>
     </form>
   );
-} 
+}

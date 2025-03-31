@@ -6,10 +6,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardFooter,
   Alert,
-  Divider,
-  Image,
   Tabs,
   Tab,
   Table,
@@ -37,7 +34,11 @@ interface ShowProps {
   flash: { notice?: string; alert?: string };
 }
 
-export default function Show({ account, account_users = [], flash }: ShowProps) {
+export default function Show({
+  account,
+  account_users = [],
+  flash,
+}: ShowProps) {
   const [flashVisible, setFlashVisible] = useState(true);
   const [selected, setSelected] = useState("details");
   const { url: pathname } = usePage();
@@ -167,7 +168,9 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
               >
                 <Tab key="details" title="Details">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-medium text-gray-500">Account Details</h3>
+                    <h3 className="font-medium text-gray-500">
+                      Account Details
+                    </h3>
                     <Button
                       as={Link}
                       href="/settings/edit"
@@ -180,7 +183,9 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
                   <div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <div className="text-sm text-gray-500">Account Name</div>
+                        <div className="text-sm text-gray-500">
+                          Account Name
+                        </div>
                         <div className="font-medium">{account.name}</div>
                       </div>
                       <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
@@ -190,10 +195,12 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
                     </div>
                   </div>
                 </Tab>
-                
+
                 <Tab key="users" title="Members">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-medium text-gray-500">Account Members</h3>
+                    <h3 className="font-medium text-gray-500">
+                      Account Members
+                    </h3>
                     <Button
                       as={Link}
                       href="/settings/users/new"
@@ -203,14 +210,16 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
                       Add New User
                     </Button>
                   </div>
-                  
+
                   {account_users.length > 0 ? (
                     <Table removeWrapper aria-label="Users table">
                       <TableHeader>
                         <TableColumn>USER</TableColumn>
                         <TableColumn>EMAIL</TableColumn>
                         <TableColumn>ROLE</TableColumn>
-                        <TableColumn className="text-right">ACTIONS</TableColumn>
+                        <TableColumn className="text-right">
+                          ACTIONS
+                        </TableColumn>
                       </TableHeader>
                       <TableBody emptyContent="No users found.">
                         {account_users.map((account_user) => (
@@ -220,7 +229,9 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
                                 {account_user.user.name || "Unnamed User"}
                               </div>
                             </TableCell>
-                            <TableCell>{account_user.user.email_address}</TableCell>
+                            <TableCell>
+                              {account_user.user.email_address}
+                            </TableCell>
                             <TableCell>
                               <Dropdown>
                                 <DropdownTrigger>
@@ -254,8 +265,10 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
                                           : ""
                                       }
                                     >
-                                      {role.charAt(0).toUpperCase() + role.slice(1)}
-                                      {role === account_user.role && " (current)"}
+                                      {role.charAt(0).toUpperCase() +
+                                        role.slice(1)}
+                                      {role === account_user.role &&
+                                        " (current)"}
                                     </DropdownItem>
                                   ))}
                                 </DropdownMenu>
@@ -286,7 +299,9 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
                     </Table>
                   ) : (
                     <div className="text-center p-8 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <p className="text-gray-500 mb-2">No users found in this account.</p>
+                      <p className="text-gray-500 mb-2">
+                        No users found in this account.
+                      </p>
                       <Button
                         as={Link}
                         href="/settings/users/new"
@@ -300,16 +315,20 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
                     </div>
                   )}
                 </Tab>
-                
+
                 <Tab key="preferences" title="Preferences">
                   <div className="space-y-6">
                     <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-                      <h3 className="font-medium text-lg mb-4">Theme Settings</h3>
-                      
+                      <h3 className="font-medium text-lg mb-4">
+                        Theme Settings
+                      </h3>
+
                       <div className="flex items-center justify-between py-2 px-2 border-b border-gray-200 dark:border-gray-700">
                         <div>
                           <p className="font-medium">Dark Mode</p>
-                          <p className="text-sm text-gray-500">Enable dark mode for the application</p>
+                          <p className="text-sm text-gray-500">
+                            Enable dark mode for the application
+                          </p>
                         </div>
                         <div className="flex items-center space-x-2">
                           <SunIcon className="h-5 w-5 text-gray-500" />
@@ -322,12 +341,14 @@ export default function Show({ account, account_users = [], flash }: ShowProps) 
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-                      <h3 className="font-medium text-lg mb-3">Notification Preferences</h3>
+                      <h3 className="font-medium text-lg mb-3">
+                        Notification Preferences
+                      </h3>
                       <p className="text-gray-500 mb-4">
-                        Notification settings will be available soon. This will include 
-                        email notifications, in-app alerts, and more.
+                        Notification settings will be available soon. This will
+                        include email notifications, in-app alerts, and more.
                       </p>
                       <div className="flex items-center gap-2">
                         <Button color="primary" disabled>

@@ -4,7 +4,6 @@ import { AccountDropdown } from "../components/AccountDropdown";
 import { ProfileDropdown } from "../components/ProfileDropdown";
 import {
   HomeIcon,
-  BuildingOfficeIcon,
   UserIcon,
   CogIcon,
   Bars3Icon,

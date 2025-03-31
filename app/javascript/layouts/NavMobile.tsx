@@ -11,7 +11,6 @@ import { AccountDropdown } from "../components/AccountDropdown";
 import { ProfileDropdown } from "../components/ProfileDropdown";
 import {
   HomeIcon,
-  BuildingOfficeIcon,
   UserIcon,
   CogIcon,
   Bars3Icon,
@@ -23,11 +22,7 @@ interface NavMobileProps {
   onOpenChange: (isOpen: boolean) => void;
 }
 
-export function NavMobile({
-  pathname,
-  isOpen,
-  onOpenChange,
-}: NavMobileProps) {
+export function NavMobile({ pathname, isOpen, onOpenChange }: NavMobileProps) {
   // Define navigation items
   const navItems = [
     { name: "Dashboard", href: "/", icon: HomeIcon },

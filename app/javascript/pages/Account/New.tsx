@@ -1,7 +1,7 @@
 import { Head } from "@inertiajs/react";
 import Form from "./Form";
 import { AccountType } from "./types";
-import { Button, Divider, Breadcrumbs, BreadcrumbItem } from "@heroui/react";
+import { Button, Divider } from "@heroui/react";
 import { Link } from "@inertiajs/react";
 import { client } from "@/lib/apollo";
 import { GET_ACCOUNTS, GET_CURRENT_ACCOUNT } from "@/lib/queries";

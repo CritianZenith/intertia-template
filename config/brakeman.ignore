@@ -3,17 +3,17 @@
     {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
-      "fingerprint": "29f50614ca9bdff7e49077421120f8832b82a8f2b767bc8666fc08388567bf2f",
+      "fingerprint": "434540396dcbcd69b58ef495e9f9d51a10ea468c41fba155693ec2a3720fe2e1",
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/account_users_controller.rb",
-      "line": 84,
+      "file": "app/controllers/settings/users_controller.rb",
+      "line": 79,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:account_user).permit(:role)",
+      "code": "params.require(:account_user).permit(:email_address, :role)",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "AccountUsersController",
+        "class": "Settings::UsersController",
         "method": "account_user_params"
       },
       "user_input": ":role",
@@ -21,7 +21,7 @@
       "cwe_id": [
         915
       ],
-      "note": "Role is a sensitive key"
+      "note": ""
     }
   ],
   "brakeman_version": "7.0.0"

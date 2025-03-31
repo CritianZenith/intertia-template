@@ -21,4 +21,4 @@ export interface AccountUserType {
   id: number;
   role: "admin" | "member";
   user: UserType;
-} 
+}
